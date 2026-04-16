@@ -1,7 +1,7 @@
 site:
   title: "Teere"
   subtitle: "/ Books"
-  pageTitle: "Teere Library"
+  pageTitle: "Teere Guede"
   
   hero:
     heading: "A curated collection of books."
@@ -9,7 +9,7 @@ site:
     show: true
   
   footer:
-    text: "Built with ♥ · By Mortada"
+    text: "Built with ♥ · By Murtadaa"
     show: true
 
   searchPlaceholder: "Search by title or author…"
@@ -80,6 +80,13 @@ books:
     category: "Science"
     thumbnail: ""
     file: "books/dune.pdf"
+
+  - title: "Sapiens2"
+    author: "Yuval Noah Harari"
+    description: "A brief history of humankind..."
+    category: "History"
+    thumbnail: ""
+    file: "books/sapiens.pdf"
 
   - title: "Sapiens2"
     author: "Yuval Noah Harari"
