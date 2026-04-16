@@ -1,0 +1,89 @@
+site:
+  title: "Teere"
+  subtitle: "/ Books"
+  pageTitle: "Teere Library"
+  
+  hero:
+    heading: "A curated collection of books."
+    description: "Browse, preview, and download freely. All titles available at no cost."
+    show: true
+  
+  footer:
+    text: "Built with ♥ · By Mortada"
+    show: true
+
+  searchPlaceholder: "Search by title or author…"
+
+theme:
+  background: "#0d0d0d"
+  surface: "#161616"
+  card: "#1c1c1c"
+  border: "#2a2a2a"
+  accent: "#c9a84c"
+  accentHover: "#e8c97a"
+  text: "#e8e0d0"
+  muted: "#7a7060"
+  modalOverlay: "rgba(0,0,0,0.88)"
+  
+  headingFont: "'Playfair Display', serif"
+  bodyFont: "'DM Sans', sans-serif"
+  
+  cardHoverLift: true        
+  cardHoverShadow: true
+  
+  # Border radius
+  cardRadius: "12px"
+  buttonRadius: "7px"
+
+categories:
+  - All
+  - Fiction
+  - Science
+  - History
+  - Classic
+  - Non-Fiction
+  - Business
+  - Sci-Fi
+
+books:
+  - title: "The Great Gatsby"
+    author: "F. Scott Fitzgerald"
+    description: "A portrait of the Jazz Age in all of its decadence and excess..."
+    category: "Classic"
+    thumbnail: "thumbnails/gatsby.jpg"
+    file: "books/great-gatsby.pdf"
+
+  - title: "Dune"
+    author: "Frank Herbert"
+    description: "Set in the distant future, a young nobleman must navigate betrayal..."
+    category: "Science"
+    thumbnail: "thumbnails/dune.jpg"
+    file: "books/dune.pdf"
+
+  - title: "Sapiens"
+    author: "Yuval Noah Harari"
+    description: "A brief history of humankind..."
+    category: "History"
+    thumbnail: ""
+    file: "books/sapiens.pdf"
+    
+  - title: "The Great Gatsby2"
+    author: "F. Scott Fitzgerald"
+    description: "A portrait of the Jazz Age in all of its decadence and excess..."
+    category: "Classic"
+    thumbnail: "thumbnails/gatsby.jpg"
+    file: "books/great-gatsby.pdf"
+
+  - title: "Dune2"
+    author: "Frank Herbert"
+    description: "Set in the distant future, a young nobleman must navigate betrayal..."
+    category: "Science"
+    thumbnail: ""
+    file: "books/dune.pdf"
+
+  - title: "Sapiens2"
+    author: "Yuval Noah Harari"
+    description: "A brief history of humankind..."
+    category: "History"
+    thumbnail: ""
+    file: "books/sapiens.pdf"
