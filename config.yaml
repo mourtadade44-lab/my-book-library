@@ -36,12 +36,12 @@ theme:
   buttonRadius: "7px"
 
 categories:
- - Humanities & Thought
- - Religion & Spirituality
- - Science & Reference
- - Literature & Media
- - Languages
- - Miscellaneous/Other
+  - Humanities & Thought
+  - Religion & Spirituality
+  - Science & Reference
+  - Literature & Media
+  - Languages
+  - Miscellaneous/Other
 
 books:
   - title: "The Great Gatsby"
