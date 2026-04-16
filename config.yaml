@@ -1,15 +1,15 @@
 site:
-  title: "Teere"
-  subtitle: "/ Books"
-  pageTitle: "Teere Guede"
+  title: "Teere Guede Bousso"
+  subtitle: "/ Books Library"
+  pageTitle: "Teere Guede Bousso"
   
   hero:
-    heading: "A curated collection of books."
+    heading: "The House of Knowledge"
     description: "Browse, preview, and download freely. All titles available at no cost."
     show: true
   
   footer:
-    text: "Built with ♥ · By Murtadaa"
+    text: "Built with ♥ · By Murtadaa Buso"
     show: true
 
   searchPlaceholder: "Search by title or author…"
@@ -36,14 +36,12 @@ theme:
   buttonRadius: "7px"
 
 categories:
-  - All
-  - Fiction
-  - Science
-  - History
-  - Classic
-  - Non-Fiction
-  - Business
-  - Sci-Fi
+- Humanities & Thought
+- Religion & Spirituality
+- Science & Reference
+- Literature & Media
+- Languages
+- Miscellaneous/Other
 
 books:
   - title: "The Great Gatsby"
@@ -52,34 +50,6 @@ books:
     category: "Classic"
     thumbnail: "thumbnails/gatsby.jpg"
     file: "books/great-gatsby.pdf"
-
-  - title: "Dune"
-    author: "Frank Herbert"
-    description: "Set in the distant future, a young nobleman must navigate betrayal..."
-    category: "Science"
-    thumbnail: "thumbnails/dune.jpg"
-    file: "books/dune.pdf"
-
-  - title: "Sapiens"
-    author: "Yuval Noah Harari"
-    description: "A brief history of humankind..."
-    category: "History"
-    thumbnail: ""
-    file: "books/sapiens.pdf"
-    
-  - title: "The Great Gatsby2"
-    author: "F. Scott Fitzgerald"
-    description: "A portrait of the Jazz Age in all of its decadence and excess..."
-    category: "Classic"
-    thumbnail: "thumbnails/gatsby.jpg"
-    file: "books/great-gatsby.pdf"
-
-  - title: "Dune2"
-    author: "Frank Herbert"
-    description: "Set in the distant future, a young nobleman must navigate betrayal..."
-    category: "Science"
-    thumbnail: ""
-    file: "books/dune.pdf"
 
   - title: "Sapiens2"
     author: "Yuval Noah Harari"
