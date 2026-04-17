@@ -3,9 +3,9 @@ site:
   subtitle: "/ Books Library"
   pageTitle: "Teere Guede Bousso"
   
-  # --- YOUR CONTACT INFO ---
+ # --- YOUR CONTACT INFO ---
   contact:
-    email: "mourtadade44@gamil.com"  
+    email: "mourtadade44@gmail.com"  
     phone: "+212 6 51 95 69 08"  
   
   hero:
@@ -26,7 +26,7 @@ analytics:
 comments:
   enabled: true
   provider: "giscus" 
-  repo: "mourtadade44-lab/my-book-library
+  repo: "mourtadade44-lab/my-book-library"
 
 theme:
   background: "#0d0d0d"
