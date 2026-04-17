@@ -3,6 +3,11 @@ site:
   subtitle: "/ Books Library"
   pageTitle: "Teere Guede Bousso"
   
+  # --- YOUR CONTACT INFO ---
+  contact:
+    email: "mourtadade44@gamil.com"  
+    phone: "+212 6 51 95 69 08"  
+  
   hero:
     heading: "The House of Knowledge"
     description: "Browse, preview, and download freely. All titles available at no cost."
@@ -13,6 +18,15 @@ site:
     show: true
 
   searchPlaceholder: "Search by title or author…"
+
+# --- VISITOR TRACKING & COMMENTS ---
+analytics:
+  google_id: "G-WJ8WMD37" 
+
+comments:
+  enabled: true
+  provider: "giscus" 
+  repo: "mourtadade44-lab/your-repo-name" # Change 'your-repo-name' to your project name
 
 theme:
   background: "#0d0d0d"
@@ -31,12 +45,12 @@ theme:
   cardHoverLift: true        
   cardHoverShadow: true
   
-  # Border radius
   cardRadius: "12px"
   buttonRadius: "7px"
 
 categories:
   - All
+  - Essays & Articles
   - Humanities & Thought
   - Religion & Spirituality
   - Biography
@@ -45,6 +59,15 @@ categories:
   - Literature & Media
   - Miscellaneous/Other
 
+# --- NEW SECTION: YOUR ESSAYS ---
+essays:
+  - title: "Welcome to my Library"
+    author: "Murtadaa Buso Maamun"
+    description: "An introduction to the Teere Guede Bousso project."
+    category: "Essays & Articles"
+    file: "essays/intro.pdf" 
+
+# --- YOUR BOOKS ---
 books:
   - title: "ويسألونك عن الشيخ امباكي بوسو"
     author: "S Mame Mor Mbacke Hamdy"
@@ -121,4 +144,4 @@ books:
     description: "La vie de Serigne Ndiagna Bousso"
     category: "Biography"
     thumbnail: "thumbnails/S Ndiania.png"
-    file: "books/Serigne Ndiagna Bousso  Un Héritage de Piété et de Service.pdf"
+    file: "books/Serigne Ndiagna Bousso  Un Héritage de Piété et de Service.pdf"
