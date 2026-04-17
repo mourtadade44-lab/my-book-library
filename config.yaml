@@ -42,8 +42,6 @@ categories:
   - Science & Reference
   - Magazines
   - Literature & Media
-  - French
-  - English
   - Miscellaneous/Other
 
 books:
@@ -99,7 +97,7 @@ books:
      - title: "Le 1er Khalif de S Mbacke Bousso"
     author: "Serigne Fallou Bousso"
     description: "S Modou Bousso"
-    category: "French"
+    category: "Biography"
     thumbnail: "thumbnails/البكر.png"
     file: "books/Serigne Modou Bousso 1er Khalif de Serigne Mbacke Bousso.pdf"
 
