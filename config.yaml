@@ -38,18 +38,21 @@ theme:
 categories:
   - Humanities & Thought
   - Religion & Spirituality
+  - Biography
   - Science & Reference
+  - Magazines
   - Literature & Media
-  - Languages
+  - French
+  - English
   - Miscellaneous/Other
 
 books:
-  - title: "The Great Gatsby"
-    author: "F. Scott Fitzgerald"
-    description: "A portrait of the Jazz Age in all of its decadence and excess..."
-    category: "Classic"
-    thumbnail: "thumbnails/gatsby.jpg"
-    file: "books/great-gatsby.pdf"
+  - title: "ويسألونك عن الشيخ امباكي بوسو"
+    author: "S Mame Mor Mbacke Hamdy"
+    description: "ترجمة العلامة الحاج امباكي بوسو"
+    category: "Biography"
+    thumbnail: "thumbnails/ويسألونك.png"
+    file: "books/ويسألونك عن الشيخ امباكي بوسو.pdf"
 
   - title: "مجموعة من كتابات العلامة الحاج امباكي بوسو"
     author: "Cheikh Mbacke Bousso"
@@ -64,3 +67,59 @@ books:
     category: "Religion & Spirituality"
     thumbnail: "thumbnails/WhatsApp Image 2025-05-24 at 16.14.34_60d71036.jpg"
     file: "books/من رسائل الشيخ محمد امباك بوص.pdf"
+
+     - title: "الشيخ محمد البسوبي الكدوي: حياته وشعره"
+    author: "Serigne Ibra Bousso & Serigne Modou Bousso"
+    description: "السيرة الذاتية لمحمد بوسو بن الشيخ امباكي بوسو"
+    category: "Biography"
+    thumbnail: "thumbnails/S Modou.png"
+    file: "books/الشيخ محمد البسوبي الكدوي.pdf"
+
+     - title: "مريم جارة الله حياتها وسيرتها"
+    author: "Khadija lo"
+    description: "سيرة سغن مريم جارة الله بوسو"
+    category: "Biography"
+    thumbnail: "thumbnails/.jpg"
+    file: "books/جارة الله.pdf"
+
+     - title: "المنبر الكدوي 2017"
+    author: "سلم الوصول"
+    description: "مجلة علمية ثقافية"
+    category: "Magazines"
+    thumbnail: "thumbnails/المنبر 2017.png"
+    file: "books/المنبر الكدوي 2017.pdf"
+
+      - title: "المنبر الكدوي 2025"
+    author: "سلم الوصول"
+    description: "مجلة علمية ثقافية"
+    category: "Magazines"
+    thumbnail: "thumbnails/المنبر 2025.png"
+    file: "books/المنبر الكدوي 2025.pdf"
+
+     - title: "Le 1er Khalif de S Mbacke Bousso"
+    author: "Serigne Fallou Bousso"
+    description: "S Modou Bousso"
+    category: "French"
+    thumbnail: "thumbnails/البكر.png"
+    file: "books/Serigne Modou Bousso 1er Khalif de Serigne Mbacke Bousso.pdf"
+
+     - title: "حياة العلامة الشيخ امباكي بوسو"
+    author: "الللجنة الثقافية التابعة لشباب سلم الوصول"
+    description: "الشيخ امباكي بوسو حياته وخلفاؤه"
+    category: "Biography"
+    thumbnail: "thumbnails/s mbacke.png"
+    file: "books/حياة العلامة الحاج امباكي بوسو.pdf"
+
+     - title: "سرين مود خر بوسو"
+    author: "اللجنة الثقافية التابعة لدائرة أحفاد الشيخ مود خر"
+    description: "حياة الإمام الورع سرين مود خر بوسو وحكاياته التي رواها مباشرة عن الشيخ الخديم"
+    category: "Biography"
+    thumbnail: "thumbnails/"
+    file: "books/سَرينْ مُودُ خَرِ بوسو.pdf"
+
+     - title: "Serigne Ndiagna Bousso"
+    author: "cheikh Bachir Bousso Bakher"
+    description: "La vie de Serigne Ndiagna Bousso"
+    category: "Biography"
+    thumbnail: "thumbnails/S Ndiania.png"
+    file: "books/Serigne Ndiagna Bousso  Un Héritage de Piété et de Service.pdf"
