@@ -78,7 +78,7 @@ books:
     author: "Khadija lo"
     description: "سيرة سغن مريم جارة الله بوسو"
     category: "Biography"
-    thumbnail: "thumbnails/.jpg"
+    thumbnail: "thumbnails/mm diarra.jfif"
     file: "books/جارة الله.pdf"
 
   - title: "المنبر الكدوي 2017"
@@ -106,14 +106,14 @@ books:
     author: "الللجنة الثقافية التابعة لشباب سلم الوصول"
     description: "الشيخ امباكي بوسو حياته وخلفاؤه"
     category: "Biography"
-    thumbnail: "thumbnails/s mbacke.png"
+    thumbnail: "thumbnails/s mbacke.jpg"
     file: "books/حياة العلامة الحاج امباكي بوسو.pdf"
 
   - title: "سرين مود خر بوسو"
     author: "اللجنة الثقافية التابعة لدائرة أحفاد الشيخ مود خر"
     description: "حياة الإمام الورع سرين مود خر بوسو وحكاياته التي رواها مباشرة عن الشيخ الخديم"
     category: "Biography"
-    thumbnail: "thumbnails/"
+    thumbnail: "thumbnails/Screenshot 2026-04-17 214751.png"
     file: "books/سَرينْ مُودُ خَرِ بوسو.pdf"
 
   - title: "Serigne Ndiagna Bousso"
