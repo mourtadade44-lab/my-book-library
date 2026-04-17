@@ -3,23 +3,21 @@ site:
   subtitle: "/ Books Library"
   pageTitle: "Teere Guede Bousso"
   
- # --- YOUR CONTACT INFO ---
-  contact:
+contact:
     email: "mourtadade44@gmail.com"  
     phone: "+212 6 51 95 69 08"  
   
-  hero:
+hero:
     heading: "The House of Knowledge"
     description: "Browse, preview, and download freely. All titles available at no cost."
     show: true
   
-  footer:
+footer:
     text: "Built with ♥ · By Murtadaa Buso"
     show: true
 
-  searchPlaceholder: "Search by title or author…"
+searchPlaceholder: "Search by title or author…"
 
-# --- VISITOR TRACKING & COMMENTS ---
 analytics:
   google_id: "G-WJ8WMD37" 
 
@@ -59,7 +57,6 @@ categories:
   - Literature & Media
   - Miscellaneous/Other
 
-# --- NEW SECTION: YOUR ESSAYS ---
 essays:
   - title: "Welcome to my Library"
     author: "Murtadaa Buso Maamun"
@@ -67,7 +64,6 @@ essays:
     category: "Essays & Articles"
     file: "essays/intro.pdf" 
 
-# --- YOUR BOOKS ---
 books:
   - title: "ويسألونك عن الشيخ امباكي بوسو"
     author: "S Mame Mor Mbacke Hamdy"
