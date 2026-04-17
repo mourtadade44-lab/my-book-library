@@ -425,8 +425,7 @@
   </style>
 </head>
 <body>
-
-<header>
+  <header>
   <div class="header-inner">
     <div class="logo"><span id="site-title"></span><span id="site-subtitle"></span></div>
     <div class="search-wrap">
@@ -647,23 +646,18 @@
       
       let html = '';
       essays.forEach((essay, i) => {
-        const bookData = JSON.stringify(essay).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
         html += `
-          <div class="card essay-card" data-book='${bookData}' style="animation-delay: ${i * 0.05}s">
+          <div class="card essay-card" style="animation-delay: ${i * 0.05}s">
             <div class="card-body">
               <span class="category-tag">${essay.category || 'Essay'}</span>
               <div class="card-title">${essay.title}</div>
               <div class="card-author">${essay.author}</div>
               <div class="card-desc">${essay.description}</div>
               <div class="card-actions">
-                <a class="btn btn-download" href="${essay.file}" download>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download
+                <a class="btn btn-download" href="${essay.file}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  Read Article
                 </a>
-                <button class="btn btn-preview">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  Preview
-                </button>
               </div>
             </div>
           </div>
