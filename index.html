@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="page-title">Loading...</title>
-  <!-- Fonts (overridden by YAML theme if provided) -->
+  
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- YAML parser -->
+  
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  
   <style>
-    /* ----- BASE STYLES (controlled by YAML theme variables) ----- */
+    /* ----- BASE STYLES ----- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg, #0d0d0d);
@@ -85,6 +86,8 @@
       margin: 0 auto;
       padding: 2rem 1.5rem;
     }
+    
+    /* Hero & Contact */
     .hero {
       margin-bottom: 2.5rem;
       border-bottom: 1px solid var(--border, #2a2a2a);
@@ -96,8 +99,51 @@
       font-weight: 700;
     }
     .hero h1 em { color: var(--accent, #c9a84c); font-style: italic; }
-    .hero p { margin-top: 0.8rem; color: var(--muted, #7a7060); max-width: 500px; }
+    .hero p { margin-top: 0.8rem; color: var(--muted, #7a7060); max-width: 500px; line-height: 1.6; }
+    
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .contact-info a {
+      color: var(--accent, #c9a84c);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      background: var(--surface, #161616);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border, #2a2a2a);
+      transition: all 0.2s;
+    }
+    .contact-info a:hover {
+      border-color: var(--accent, #c9a84c);
+      background: rgba(201,168,76,0.1);
+    }
 
+    /* Sections */
+    .section-title {
+      font-family: var(--heading-font, 'Playfair Display', serif);
+      font-size: 1.8rem;
+      color: var(--text, #e8e0d0);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border, #2a2a2a);
+    }
+
+    /* Filters */
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -125,13 +171,14 @@
     .filter-btn:hover { border-color: var(--accent, #c9a84c); color: var(--accent, #c9a84c); }
     .filter-btn.active { background: var(--accent, #c9a84c); border-color: var(--accent, #c9a84c); color: #0d0d0d; font-weight: 500; }
 
+    /* Grid & Cards */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.5rem;
+      margin-bottom: 4rem;
     }
 
-    /* Card */
     .card {
       background: var(--card, #1c1c1c);
       border: 1px solid var(--border, #2a2a2a);
@@ -141,7 +188,7 @@
       flex-direction: column;
       transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
       animation: fadeUp 0.4s ease both;
-      cursor: pointer;  /* indicates whole card is clickable */
+      cursor: pointer;
     }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     .card:hover {
@@ -149,6 +196,16 @@
       border-color: var(--accent-alpha, rgba(201,168,76,0.35));
       box-shadow: var(--hover-shadow, 0 12px 40px rgba(0,0,0,0.5));
     }
+    
+    /* Essay specific style */
+    .card.essay-card .card-thumb { display: none; }
+    .card.essay-card .category-tag {
+      position: relative;
+      top: 0; left: 0;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
     .card-thumb {
       aspect-ratio: 3/4;
       background: var(--surface, #161616);
@@ -254,7 +311,7 @@
     }
     .btn-preview:hover { border-color: var(--accent, #c9a84c); color: var(--accent, #c9a84c); }
 
-    /* ----- MODAL (fixed height + preview fills space) ----- */
+    /* Modal */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -274,7 +331,7 @@
       border-radius: 16px;
       width: 100%;
       max-width: 1000px;
-      height: 95vh;               /* fill most of the screen */
+      height: 95vh;
       max-height: 95vh;
       display: flex;
       flex-direction: column;
@@ -310,10 +367,7 @@
       font-size: 1.1rem;
       flex-shrink: 0;
     }
-    .modal-close:hover {
-      color: var(--text, #e8e0d0);
-      border-color: var(--accent, #c9a84c);
-    }
+    .modal-close:hover { color: var(--text, #e8e0d0); border-color: var(--accent, #c9a84c); }
 
     .modal-preview {
       flex: 1;
@@ -336,12 +390,7 @@
       gap: 0.75rem;
       flex-shrink: 0;
     }
-    .modal-footer .btn {
-      flex: none;
-      padding: 9px 20px;
-    }
 
-    /* Empty / loading */
     .empty, .loading {
       grid-column: 1/-1;
       text-align: center;
@@ -357,7 +406,12 @@
       border-top: 1px solid var(--border, #2a2a2a);
     }
 
-    /* Responsive */
+    #comments-section {
+      max-width: 900px;
+      margin: 0 auto 3rem auto;
+      padding: 0 1.5rem;
+    }
+
     @media (max-width: 600px) {
       .header-inner { gap: 1rem; }
       .logo span { display: none; }
@@ -389,20 +443,29 @@
   <div class="hero" id="hero-section" style="display: none;">
     <h1 id="hero-heading"></h1>
     <p id="hero-desc"></p>
+    <div id="contact-info" class="contact-info" style="display: none;"></div>
   </div>
 
-  <div class="filters" id="filters">
-    <span class="filter-label">Filter:</span>
+  <div id="essays-container" style="display: none;">
+    <h2 class="section-title">Essays & Articles</h2>
+    <div class="grid" id="essays-grid"></div>
   </div>
 
-  <div class="grid" id="grid">
-    <div class="loading">Loading library...</div>
+  <div id="books-container">
+    <h2 class="section-title" id="library-title" style="display: none;">Library Collection</h2>
+    <div class="filters" id="filters">
+      <span class="filter-label">Filter:</span>
+    </div>
+    <div class="grid" id="grid">
+      <div class="loading">Loading library...</div>
+    </div>
   </div>
+  
+  <div id="comments-section"></div>
 </main>
 
 <footer class="site-footer" id="footer-text" style="display: none;"></footer>
 
-<!-- PDF Preview Modal -->
 <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
   <div class="modal">
     <div class="modal-header">
@@ -429,32 +492,76 @@
   (function() {
     let config = null;
     let books = [];
+    let essays = [];
     let activeCategory = 'All';
     let searchTerm = '';
 
     const grid = document.getElementById('grid');
+    const essaysGrid = document.getElementById('essays-grid');
     const searchInput = document.getElementById('search');
     const filtersEl = document.getElementById('filters');
     const countEl = document.getElementById('count');
 
-    // ----- Load config.yaml & apply theme/texts -----
     async function loadConfig() {
       try {
         const response = await fetch('config.yaml');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const yamlText = await response.text();
         config = jsyaml.load(yamlText);
+        
         applyTheme(config.theme);
         populateTexts(config.site);
+        injectGoogleAnalytics(config.analytics);
+        injectComments(config.comments);
+        
         books = config.books || [];
+        essays = config.essays || [];
+        
         initCategories();
-        render();
+        renderEssays();
+        renderBooks();
       } catch (error) {
         console.error('Failed to load config.yaml:', error);
         grid.innerHTML = `<div class="empty"><div class="empty-icon">📚</div><p>Ooops! No Books Found.</p></div>`;
       }
     }
 
+    // --- Injections ---
+    function injectGoogleAnalytics(analytics) {
+      if (analytics && analytics.google_id) {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${analytics.google_id}`;
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', analytics.google_id);
+      }
+    }
+
+    function injectComments(comments) {
+      if (comments && comments.enabled && comments.repo) {
+        const script = document.createElement('script');
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", comments.repo);
+        script.setAttribute("data-repo-id", ""); 
+        script.setAttribute("data-category", "General");
+        script.setAttribute("data-category-id", "");
+        script.setAttribute("data-mapping", "pathname");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "bottom");
+        script.setAttribute("data-theme", "dark");
+        script.setAttribute("data-lang", "en");
+        script.crossOrigin = "anonymous";
+        script.async = true;
+        document.getElementById('comments-section').appendChild(script);
+      }
+    }
+
+    // --- Styling & Text ---
     function applyTheme(theme) {
       if (!theme) return;
       const root = document.documentElement;
@@ -483,28 +590,39 @@
       
       const heroSection = document.getElementById('hero-section');
       if (site.hero && site.hero.show !== false) {
-        const heading = site.hero.heading || '';
-        const desc = site.hero.description || '';
-        if (heading || desc) {
-          heroSection.style.display = 'block';
-          document.getElementById('hero-heading').innerHTML = heading;
-          document.getElementById('hero-desc').textContent = desc;
-        } else {
-          heroSection.style.display = 'none';
+        heroSection.style.display = 'block';
+        document.getElementById('hero-heading').innerHTML = site.hero.heading || '';
+        document.getElementById('hero-desc').textContent = site.hero.description || '';
+        
+        // Contact Info
+        if (site.contact) {
+          const contactEl = document.getElementById('contact-info');
+          let html = '';
+          if (site.contact.email) {
+            html += `<a href="mailto:${site.contact.email}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              ${site.contact.email}</a>`;
+          }
+          if (site.contact.phone) {
+            html += `<a href="tel:${site.contact.phone.replace(/\s+/g, '')}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              ${site.contact.phone}</a>`;
+          }
+          if (html) {
+            contactEl.innerHTML = html;
+            contactEl.style.display = 'flex';
+          }
         }
-      } else {
-        heroSection.style.display = 'none';
       }
       
       const footerEl = document.getElementById('footer-text');
       if (site.footer && site.footer.show !== false) {
         footerEl.style.display = 'block';
         footerEl.innerHTML = site.footer.text || '';
-      } else {
-        footerEl.style.display = 'none';
       }
     }
 
+    // --- Rendering ---
     function initCategories() {
       const categories = config.categories || ['All', ...new Set(books.map(b => b.category))];
       filtersEl.innerHTML = '<span class="filter-label">Filter:</span>';
@@ -516,14 +634,45 @@
           activeCategory = cat;
           document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          render();
+          renderBooks();
         });
         filtersEl.appendChild(btn);
       });
     }
 
-    // ----- Render cards & attach click‑to‑preview -----
-    function render() {
+    function renderEssays() {
+      if (!essays.length) return;
+      document.getElementById('essays-container').style.display = 'block';
+      document.getElementById('library-title').style.display = 'flex'; // Separate sections
+      
+      let html = '';
+      essays.forEach((essay, i) => {
+        const bookData = JSON.stringify(essay).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+        html += `
+          <div class="card essay-card" data-book='${bookData}' style="animation-delay: ${i * 0.05}s">
+            <div class="card-body">
+              <span class="category-tag">${essay.category || 'Essay'}</span>
+              <div class="card-title">${essay.title}</div>
+              <div class="card-author">${essay.author}</div>
+              <div class="card-desc">${essay.description}</div>
+              <div class="card-actions">
+                <a class="btn btn-download" href="${essay.file}" download>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </a>
+                <button class="btn btn-preview">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      essaysGrid.innerHTML = html;
+    }
+
+    function renderBooks() {
       const query = searchTerm.toLowerCase().trim();
       const filtered = books.filter(book => {
         const matchCat = activeCategory === 'All' || book.category === activeCategory;
@@ -552,7 +701,6 @@
           </div>
         `;
         
-        // Encode book data for the click handler
         const bookData = JSON.stringify(book).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
         
         html += `
@@ -580,38 +728,27 @@
           </div>
         `;
       });
-      
       grid.innerHTML = html;
-
-      // Attach card click listeners (open modal) – but NOT when clicking download button
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', (e) => {
-          // If the click originated from a download link/button, let it handle itself
-          if (e.target.closest('.btn-download')) return;
-          
-          const bookData = card.dataset.book;
-          if (bookData) {
-            const book = JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"'));
-            openModal(book);
-          }
-        });
-      });
-
-      // Preview buttons also work (they trigger the same modal)
-      document.querySelectorAll('.btn-preview').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation(); // avoid double firing from card click
-          const card = btn.closest('.card');
-          const bookData = card.dataset.book;
-          if (bookData) {
-            const book = JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"'));
-            openModal(book);
-          }
-        });
-      });
     }
 
-    // ----- Modal logic -----
+    // --- Global Click Event Delegation (Handles both Books and Essays) ---
+    document.addEventListener('click', (e) => {
+      // 1. If clicking the preview button
+      if (e.target.closest('.btn-preview')) {
+        e.preventDefault();
+        const card = e.target.closest('.card');
+        if (card && card.dataset.book) openModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+        return;
+      }
+      
+      // 2. If clicking the whole card (but ignore clicks on the download link)
+      const card = e.target.closest('.card');
+      if (card && !e.target.closest('.btn-download')) {
+        if (card.dataset.book) openModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+      }
+    });
+
+    // --- Modal Logic ---
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modal-title');
     const modalAuthor = document.getElementById('modal-author');
@@ -622,21 +759,15 @@
       modalTitle.textContent = book.title;
       modalAuthor.textContent = 'by ' + book.author;
       
-      // Build the full URL to the PDF (absolute URL works with Google Viewer)
       const pdfUrl = new URL(book.file, window.location.href).href;
-      
-      // Detect mobile (simple check)
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       
       if (isMobile) {
-        // Use Google Docs Viewer for mobile inline preview
         modalFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
       } else {
-        // Desktop: direct embed
         modalFrame.src = pdfUrl + '#view=FitH';
       }
       
-      // Friendly error if PDF still fails
       modalFrame.onerror = () => {
         modalFrame.srcdoc = `
           <html style="background:#0d0d0d;display:flex;align-items:center;justify-content:center;height:100%;font-family:system-ui,sans-serif;">
@@ -661,23 +792,22 @@
       document.body.style.overflow = '';
     }
 
-    // Close buttons
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-close-footer').addEventListener('click', closeModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ----- Search (debounced) -----
+    // --- Search ---
     let searchTimeout;
     searchInput.addEventListener('input', () => {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
         searchTerm = searchInput.value;
-        render();
+        renderBooks();
       }, 200);
     });
 
-    // ----- Start -----
+    // --- Start ---
     loadConfig();
   })();
 </script>
