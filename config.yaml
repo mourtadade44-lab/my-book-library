@@ -26,7 +26,7 @@ analytics:
 comments:
   enabled: true
   provider: "giscus" 
-  repo: "mourtadade44-lab/your-repo-name" # Change 'your-repo-name' to your project name
+  repo: "mourtadade44-lab/my-book-library
 
 theme:
   background: "#0d0d0d"
