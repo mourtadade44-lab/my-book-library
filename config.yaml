@@ -4,17 +4,17 @@ site:
   pageTitle: "Teere Guede Bousso"
   
 contact:
-    email: "mourtadade44@gmail.com"  
-    phone: "+212 6 51 95 69 08"  
+  email: "mourtadade44@gmail.com"  
+  phone: "+212 6 51 95 69 08"  
   
 hero:
-    heading: "The House of Knowledge"
-    description: "Browse, preview, and download freely. All titles available at no cost."
-    show: true
+  heading: "The House of Knowledge"
+  description: "Browse, preview, and download freely. All titles available at no cost."
+  show: true
   
 footer:
-    text: "Built with ♥ · By Murtadaa Buso"
-    show: true
+  text: "Built with ♥ · By Murtadaa Buso"
+  show: true
 
 searchPlaceholder: "Search by title or author…"
 
@@ -198,12 +198,12 @@ books:
     thumbnail: "thumbnails/شخصيات.png"
     file: "books/شخصيات من المدرسة الخديمية.pdf"
 
-  - title: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
+  - title: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
     author: "ذ. عافية أحمد انيانغ"
-    description: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
+    description: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
     category: "Biography"
     thumbnail: "thumbnails/عبقرية.png"
-    file: "books/عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ.pdf"
+    file: "books/عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ.pdf"
 
   - title: "سرين امباكي بوسو ودوره في نشر العلم والمعرفة"
     author: "عبد الأحد انيانغ"
