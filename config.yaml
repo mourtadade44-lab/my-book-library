@@ -1,0 +1,58 @@
+site:
+  title: "Teere Guede Bousso"
+  subtitle: "/ Library"
+  pageTitle: "Teere Guede Bousso"
+  searchPlaceholder: "Search by title or author…"
+
+  contact:
+    email: "mourtadade44@gmail.com"
+    phone: "+212 6 51 95 69 08"
+
+  hero:
+    heading: "The House of Knowledge"
+    description: "Browse, preview, and download freely. All titles available at no cost."
+    show: true
+
+  footer:
+    text: "Built with ♥ · By Murtadaa Buso"
+    show: true
+
+theme:
+  background: "#0d0d0d"
+  surface: "#161616"
+  card: "#1c1c1c"
+  border: "#2a2a2a"
+  accent: "#c9a84c"
+  accentHover: "#e8c97a"
+  text: "#e8e0d0"
+  muted: "#7a7060"
+  modalOverlay: "rgba(0,0,0,0.88)"
+  headingFont: "'Playfair Display', serif"
+  bodyFont: "'DM Sans', sans-serif"
+  cardHoverLift: true
+  cardHoverShadow: true
+  cardRadius: "12px"
+  buttonRadius: "7px"
+
+categories:
+  - All
+  - Essays & Articles
+  - Humanities & Thought
+  - Religion & Spirituality
+  - Biography
+  - Science & Reference
+  - Magazines
+  - Literature & Media
+  - Miscellaneous/Other
+
+analytics:
+  google_id: "G-WJ8WMD37"
+
+comments:
+  enabled: true
+  provider: "giscus"
+  repo: "bilalelhad39-boop/my-book-library"
+  # NOTE: To use Giscus, you may need to add repoId, category, and categoryId depending on your GitHub setup.
+  repoId: "R_kgDOSDoNCw" 
+  category: "General"
+  categoryId: "DIC_kwDOSDoNC84C7Nxb"

@@ -1,0 +1,12 @@
+articles:
+  - title: "Welcome to my Blog"
+    author: "Murtadaa Buso Mamoune"
+    description: "An introduction to my thoughts and writings."
+    category: "Essays & Articles"
+    file: "essays/welcome.txt"
+
+  - title: "The History of Guede Bousso"
+    author: "Murtadaa Buso Mamoune"
+    description: "A deep dive into the origins and lineage."
+    category: "History"
+    file: "essays/history.txt"
