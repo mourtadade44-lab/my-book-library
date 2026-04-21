@@ -4,3 +4,9 @@ articles:
     description: "The History of Guede Bousso"
     category: "Essays & Articles"
     file: "essay/guede history.txt"
+
+  - title: "Serigne Mbacke Bousso"
+    author: "Murtadaa Buso Maamune"
+    description: "A short biography of Serigne Mbacke Bousso"
+    category: "Essays & Articles"
+    file: "essay/buso.txt"
