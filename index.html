@@ -1202,17 +1202,18 @@ function enableScrollableCategories() {
       loadData();
     })();
   </script>
-  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-  <script>
-    kofiWidgetOverlay.draw('mourtada', {
-      'type': 'floating-chat',
-      'floating-chat.donateButton.text': 'Support my Library',
-      'floating-chat.donateButton.background-color': '#c9a84c',
-      'floating-chat.donateButton.text-color': '#0d0d0d'
-    });
-  </script>
-  <button id="waveBtn" style="background-color: #1db7ec; color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 16px; position: fixed; bottom: 20px; left: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
-  🌊 Faites un don avec Wave
+ <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('mourtada', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support', 
+    'floating-chat.donateButton.background-color': '#c9a84c',
+    'floating-chat.donateButton.text-color': '#0d0d0d'
+  });
+</script>
+
+<button id="waveBtn" style="background-color: #1db7ec; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; font-size: 24px; position: fixed; bottom: 85px; left: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.2); cursor: pointer; display: flex; justify-content: center; align-items: center;" title="Faites un don avec Wave">
+  🌊
 </button>
 
 <dialog id="waveModal" style="border: none; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-width: 320px;">
@@ -1236,12 +1237,10 @@ function enableScrollableCategories() {
   const waveModal = document.getElementById('waveModal');
   const closeWaveBtn = document.getElementById('closeWaveBtn');
 
-  // Open the popup when the Wave button is clicked
   waveBtn.addEventListener('click', () => {
     waveModal.showModal();
   });
 
-  // Close the popup when the Close button is clicked
   closeWaveBtn.addEventListener('click', () => {
     waveModal.close();
   });
