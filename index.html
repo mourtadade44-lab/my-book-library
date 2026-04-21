@@ -1211,5 +1211,40 @@ function enableScrollableCategories() {
       'floating-chat.donateButton.text-color': '#0d0d0d'
     });
   </script>
+  <button id="waveBtn" style="background-color: #1db7ec; color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 16px; position: fixed; bottom: 20px; left: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+  🌊 Faites un don avec Wave
+</button>
+
+<dialog id="waveModal" style="border: none; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-width: 320px;">
+  <h3 style="margin-top: 0; color: #333; font-family: sans-serif;">Support via Wave</h3>
+  <p style="color: #666; font-size: 14px; font-family: sans-serif; margin-bottom: 15px;">Open your Wave app to scan, or send directly to the number below:</p>
+  
+  <img src="wave-qr-code.png" alt="Wave QR Code" style="width: 180px; height: 180px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #ddd;">
+  
+  <div style="background-color: #f0f8ff; border: 1px solid #bce0f5; border-radius: 8px; padding: 12px; margin-bottom: 20px;">
+    <p style="margin: 0; font-size: 13px; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Wave Number</p>
+    <p style="margin: 5px 0 0 0; font-size: 20px; font-weight: bold; color: #1db7ec; font-family: monospace;">+221 77 289 20 88</p>
+  </div>
+  
+  <button id="closeWaveBtn" style="background-color: #f1f1f1; color: #333; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">
+    Close
+  </button>
+</dialog>
+
+<script>
+  const waveBtn = document.getElementById('waveBtn');
+  const waveModal = document.getElementById('waveModal');
+  const closeWaveBtn = document.getElementById('closeWaveBtn');
+
+  // Open the popup when the Wave button is clicked
+  waveBtn.addEventListener('click', () => {
+    waveModal.showModal();
+  });
+
+  // Close the popup when the Close button is clicked
+  closeWaveBtn.addEventListener('click', () => {
+    waveModal.close();
+  });
+</script>
 </body>
 </html>
