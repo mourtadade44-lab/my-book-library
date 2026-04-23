@@ -176,3 +176,10 @@ books:
     category: "Biography"
     thumbnail: "thumbnails/مور بوسو.png"
     file: "books/الشيخ مور بوسو.pdf"
+
+  - title: "مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي"
+    author: "سرين مود بوسو مامون"
+    description: "مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو"
+    category: "Biography"
+    thumbnail: "thumbnails/modou.png"
+    file: "books/6. مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو.pdf"
