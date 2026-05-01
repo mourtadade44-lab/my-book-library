@@ -1001,7 +1001,18 @@ function enableScrollableCategories() {
           }
           return matchSearch;
         });
-
+// --- SORTING LOGIC START ---
+        const sortValue = document.getElementById('sort-dropdown').value;
+        
+        if (sortValue === 'title-az') {
+          filtered.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (sortValue === 'title-za') {
+          filtered.sort((a, b) => b.title.localeCompare(a.title));
+        } else if (sortValue === 'author-az') {
+          filtered.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
+        }
+        // --- SORTING LOGIC END ---
+        
         countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
         
         if (!filtered.length) {
