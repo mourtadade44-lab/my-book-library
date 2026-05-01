@@ -1005,11 +1005,11 @@ function enableScrollableCategories() {
         const sortValue = document.getElementById('sort-dropdown').value;
         
         if (sortValue === 'title-az') {
-          filteredData.sort((a, b) => a.title.localeCompare(b.title));
+          filtered.sort((a, b) => String(a.title || '').localeCompare(String(b.title || '')));
         } else if (sortValue === 'title-za') {
-          filteredData.sort((a, b) => b.title.localeCompare(a.title));
+          filtered.sort((a, b) => String(b.title || '').localeCompare(String(a.title || '')));
         } else if (sortValue === 'author-az') {
-          filteredData.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
+          filtered.sort((a, b) => String(a.author || '').localeCompare(String(b.author || '')));
         }
         // --- SORTING LOGIC END ---
         
@@ -1329,6 +1329,8 @@ document.getElementById('clear-filters-btn').addEventListener('click', () => {
   renderGrid();
 });
 // -----------------------------------
+  document.getElementById('sort-dropdown').addEventListener('change', renderGrid);
+  
 </script>
 </body>
 </html>
