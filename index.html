@@ -941,7 +941,7 @@ function enableScrollableCategories() {
           activeLanguage = btn.getAttribute('data-lang');
           
           // Move the yellow active color to the clicked button
-          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           
           // Refresh the library to show the results
