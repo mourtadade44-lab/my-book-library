@@ -671,7 +671,21 @@
           <button class="lang-btn filter-btn" data-lang="English">English</button>
         </div>
       </div>
+<div class="filters" style="margin-top: 15px; gap: 10px; align-items: center;">
+          
+          <select id="sort-dropdown" style="padding: 6px 12px; border-radius: 8px; background: transparent; color: #7a7060; border: 1px solid #2a2a2a; font-family: inherit; font-size: 0.82rem; cursor: pointer;">
+            <option value="default">Sort by...</option>
+            <option value="title-az">Title (A-Z)</option>
+            <option value="title-za">Title (Z-A)</option>
+            <option value="author-az">Author (A-Z)</option>
+          </select>
 
+          <button id="clear-filters-btn" class="filter-btn" style="color: #ff4757; border-color: #ff4757;">
+            Clear Filters ✕
+          </button>
+
+        </div>
+      
       <h2 class="section-title" id="section-title">Library Collection</h2>
       <div class="grid" id="grid">
         <div class="loading">Loading...</div>
@@ -1283,6 +1297,27 @@ function enableScrollableCategories() {
   closeWaveBtn.addEventListener('click', () => {
     waveModal.close();
   });
+  // --- CLEAR FILTERS BUTTON LOGIC ---
+document.getElementById('clear-filters-btn').addEventListener('click', () => {
+  // 1. Reset our memory variables to 'All'
+  activeCategory = 'All';
+  activeLanguage = 'All';
+  
+  // 2. Clear the search bar text
+  document.getElementById('search-bar').value = '';
+  
+  // 3. Reset the Topic buttons (remove yellow from all, add to 'All')
+  document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('#filters .filter-btn[data-filter="All"]').classList.add('active');
+  
+  // 4. Reset the Language buttons (remove yellow from all, add to 'All')
+  document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('#language-filters .filter-btn[data-lang="All"]').classList.add('active');
+  
+  // 5. Redraw the grid with everything reset!
+  renderGrid();
+});
+// -----------------------------------
 </script>
 </body>
 </html>
