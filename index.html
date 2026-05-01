@@ -714,303 +714,424 @@
   </div>
 
   <script>
-    (function() {
-      // State
-      let config = null;
-      let books = [];
-      let articles = [];
-      let currentView = 'books';
-      let activeCategory = 'All';
-      let activeLanguage = 'All'; // <-- Added Language Tracker
-      let searchTerm = '';
-      let giscusScriptLoaded = false;
+      (function() {
+        // State
+        let config = null;
+        let books = [];
+        let articles = [];
+        let currentView = 'books';
+        let activeCategory = 'All';
+        let activeLanguage = 'All'; // Language Tracker
+        let searchTerm = '';
+        let giscusScriptLoaded = false;
 
-      // DOM elements
-      const grid = document.getElementById('grid');
-      const searchInput = document.getElementById('search');
-      const filtersEl = document.getElementById('filters');
-      const langFiltersEl = document.getElementById('lang-filters'); // <-- Added Language Element
-      const filtersContainer = document.getElementById('filters-container');
-      const countEl = document.getElementById('count');
-      const sectionTitle = document.getElementById('section-title');
-      const browseSection = document.getElementById('browse-section');
-      const articleReader = document.getElementById('article-reader');
-      const viewToggleBtn = document.getElementById('view-toggle-btn');
-      const toggleIcon = document.getElementById('toggle-icon');
-      const toggleText = document.getElementById('toggle-text');
+        // DOM elements
+        const grid = document.getElementById('grid');
+        const searchInput = document.getElementById('search');
+        const filtersEl = document.getElementById('filters');
+        const langFiltersEl = document.getElementById('lang-filters'); // Language Element
+        const filtersContainer = document.getElementById('filters-container');
+        const countEl = document.getElementById('count');
+        const sectionTitle = document.getElementById('section-title');
+        const browseSection = document.getElementById('browse-section');
+        const articleReader = document.getElementById('article-reader');
+        const viewToggleBtn = document.getElementById('view-toggle-btn');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const toggleText = document.getElementById('toggle-text');
 
-      // Helper: escape HTML
-      function escapeHtml(str) {
-        if (!str) return '';
-        return String(str)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
-      // --- Load all YAML files ---
-      async function loadData() {
-        try {
-          const [configRes, booksRes, articlesRes] = await Promise.all([
-            fetch('config.yaml'),
-            fetch('books.yaml'),
-            fetch('articles.yaml')
-          ]);
-          
-          const configText = await configRes.text();
-          const booksText = await booksRes.text();
-          const articlesText = await articlesRes.text();
-          
-          config = jsyaml.load(configText);
-          books = jsyaml.load(booksText)?.books || [];
-          articles = jsyaml.load(articlesText)?.articles || [];
-          
-          applyTheme(config.theme);
-          populateTexts(config.site);
-          injectGoogleAnalytics(config.analytics);
-          injectGlobalComments(config.comments);
-          
-          initCategories();
-          initLanguages(); // <-- Added Language Initializer
-          
-          setTimeout(enableScrollableCategories, 100);
-          renderGrid();
-        } catch (error) {
-          console.error('Failed to load YAML:', error);
-          grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
+        // Helper: escape HTML
+        function escapeHtml(str) {
+          if (!str) return '';
+          return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
         }
-      }
 
-      function enableScrollableCategories() {
-        [filtersEl, langFiltersEl].forEach(filters => {
-          if (!filters) return;
-          filters.style.display = 'flex';
-          filters.style.flexWrap = 'nowrap';
-          filters.style.overflowX = 'auto';
-          filters.style.gap = '0.5rem';
-          filters.style.paddingBottom = '6px';
-
-          const buttons = filters.querySelectorAll('.filter-btn');
-          buttons.forEach(btn => {
-            btn.style.flexShrink = '0';
-            btn.style.whiteSpace = 'nowrap';
-          });
-        });
-
-        // Auto‑scroll hint (only if content overflows)
-        setTimeout(() => {
-          if (filtersEl && filtersEl.scrollWidth > filtersEl.clientWidth) {
-            filtersEl.scrollBy({ left: 80, behavior: 'smooth' });
-            setTimeout(() => {
-              filtersEl.scrollBy({ left: -80, behavior: 'smooth' });
-            }, 600);
-          }
-        }, 800);
-      }
-
-      function applyTheme(theme) { /* ... keep the existing code here ... */ }
-      function populateTexts(site) { /* ... keep the existing code here ... */ }
-      function injectGoogleAnalytics(analytics) { /* ... keep the existing code here ... */ }
-      function injectGlobalComments(comments) { /* ... keep the existing code here ... */ }
-
-      function initCategories() {
-        const categories = config.categories || ['All', ...new Set(books.map(b => b.category))];
-        filtersEl.innerHTML = '<span class="filter-label">Category:</span>';
-        
-        categories.forEach(cat => {
-          const btn = document.createElement('button');
-          btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
-          btn.textContent = cat;
-          btn.addEventListener('click', () => {
-            activeCategory = cat;
-            filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderGrid();
-          });
-          filtersEl.appendChild(btn);
-        });
-      }
-
-      function initLanguages() {
-        const languages = ['All', 'Arabic', 'French', 'English'];
-        langFiltersEl.innerHTML = '<span class="filter-label">Language:</span>';
-
-        languages.forEach(lang => {
-          const btn = document.createElement('button');
-          btn.className = 'filter-btn' + (lang === 'All' ? ' active' : '');
-          btn.textContent = lang === 'All' ? 'Toutes les langues' : lang;
-          btn.addEventListener('click', () => {
-            activeLanguage = lang;
-            langFiltersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderGrid();
-          });
-          langFiltersEl.appendChild(btn);
-        });
-      }
-
-      function toggleView() {
-        currentView = currentView === 'books' ? 'articles' : 'books';
-        if (currentView === 'books') {
-          toggleIcon.textContent = '📚';
-          toggleText.textContent = 'Switch to Articles';
-          sectionTitle.textContent = 'Library Collection';
-          filtersContainer.style.display = 'block';
-          
-          activeCategory = 'All';
-          activeLanguage = 'All';
-          filtersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-          langFiltersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-        } else {
-          toggleIcon.textContent = '📰';
-          toggleText.textContent = 'Switch to Books';
-          sectionTitle.textContent = 'Essays & Articles';
-          filtersContainer.style.display = 'none';
-        }
-        if (typeof closeArticle === 'function') closeArticle();
-        renderGrid();
-      }
-      
-      viewToggleBtn.addEventListener('click', toggleView);
-
-      function renderGrid() {
-        const data = currentView === 'books' ? books : articles;
-        const query = searchTerm.toLowerCase().trim();
-        
-        let filtered = data.filter(item => {
-          const matchSearch = !query || item.title.toLowerCase().includes(query) || item.author.toLowerCase().includes(query);
-          
-          if (currentView === 'books') {
-            const matchCat = activeCategory === 'All' || item.category === activeCategory;
-            const matchLang = activeLanguage === 'All' || item.language === activeLanguage;
+        // --- Load all YAML files ---
+        async function loadData() {
+          try {
+            const [configRes, booksRes, articlesRes] = await Promise.all([
+              fetch('config.yaml'),
+              fetch('books.yaml'),
+              fetch('articles.yaml')
+            ]);
             
-            return matchSearch && matchCat && matchLang;
+            const configText = await configRes.text();
+            const booksText = await booksRes.text();
+            const articlesText = await articlesRes.text();
+            
+            config = jsyaml.load(configText);
+            books = jsyaml.load(booksText)?.books || [];
+            articles = jsyaml.load(articlesText)?.articles || [];
+            
+            applyTheme(config.theme);
+            populateTexts(config.site);
+            injectGoogleAnalytics(config.analytics);
+            injectGlobalComments(config.comments);
+            
+            initCategories();
+            initLanguages(); 
+            
+            setTimeout(enableScrollableCategories, 100);
+            renderGrid();
+          } catch (error) {
+            console.error('Failed to load YAML:', error);
+            grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
+          }
+        }
+
+        function applyTheme(theme) {
+          if (!theme) return;
+          const root = document.documentElement;
+          if (theme.background) root.style.setProperty('--bg', theme.background);
+          if (theme.surface) root.style.setProperty('--surface', theme.surface);
+          if (theme.card) root.style.setProperty('--card', theme.card);
+          if (theme.border) root.style.setProperty('--border', theme.border);
+          if (theme.accent) root.style.setProperty('--accent', theme.accent);
+          if (theme.accentHover) root.style.setProperty('--accent-hover', theme.accentHover);
+          if (theme.text) root.style.setProperty('--text', theme.text);
+          if (theme.muted) root.style.setProperty('--muted', theme.muted);
+          if (theme.modalOverlay) root.style.setProperty('--modal-overlay', theme.modalOverlay);
+          if (theme.headingFont) root.style.setProperty('--heading-font', theme.headingFont);
+          if (theme.bodyFont) root.style.setProperty('--body-font', theme.bodyFont);
+          
+          root.style.setProperty('--hover-lift', theme.cardHoverLift === false ? '0' : '-4px');
+          root.style.setProperty('--hover-shadow', theme.cardHoverShadow === false ? 'none' : '0 12px 40px rgba(0,0,0,0.5)');
+          if (theme.cardRadius) root.style.setProperty('--card-radius', theme.cardRadius);
+          if (theme.buttonRadius) root.style.setProperty('--button-radius', theme.buttonRadius);
+        }
+
+        function populateTexts(site) {
+          document.title = site.pageTitle || site.title || 'Library';
+          document.getElementById('site-title').textContent = site.title || '';
+          document.getElementById('site-subtitle').textContent = site.subtitle || '';
+          if (site.searchPlaceholder) searchInput.placeholder = site.searchPlaceholder;
+          
+          const heroSection = document.getElementById('hero-section');
+          if (site.hero && site.hero.show !== false) {
+            heroSection.style.display = 'block';
+            document.getElementById('hero-heading').innerHTML = site.hero.heading || '';
+            document.getElementById('hero-desc').textContent = site.hero.description || '';
           }
           
-          return matchSearch;
-        });
-        } catch (error) {
-          console.error('Failed to load YAML:', error);
-          grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
-        }
-      }
-function enableScrollableCategories() {
-  const filters = document.getElementById('filters');
-  if (!filters) return;
-
-  // Apply scrollable styles programmatically (optional, if CSS not already applied)
-  filters.style.display = 'flex';
-  filters.style.flexWrap = 'nowrap';
-  filters.style.overflowX = 'auto';
-  filters.style.gap = '0.5rem';
-  filters.style.paddingBottom = '6px';
-
-  // Make all filter buttons non-shrinking
-  const buttons = filters.querySelectorAll('.filter-btn');
-  buttons.forEach(btn => {
-    btn.style.flexShrink = '0';
-    btn.style.whiteSpace = 'nowrap';
-  });
-
-  // Auto‑scroll hint (only if content overflows)
-  setTimeout(() => {
-    if (filters.scrollWidth > filters.clientWidth) {
-      filters.scrollBy({ left: 80, behavior: 'smooth' });
-      setTimeout(() => {
-        filters.scrollBy({ left: -80, behavior: 'smooth' });
-      }, 600);
-    }
-  }, 800);
-}
-      function applyTheme(theme) {
-        if (!theme) return;
-        const root = document.documentElement;
-        if (theme.background) root.style.setProperty('--bg', theme.background);
-        if (theme.surface) root.style.setProperty('--surface', theme.surface);
-        if (theme.card) root.style.setProperty('--card', theme.card);
-        if (theme.border) root.style.setProperty('--border', theme.border);
-        if (theme.accent) root.style.setProperty('--accent', theme.accent);
-        if (theme.accentHover) root.style.setProperty('--accent-hover', theme.accentHover);
-        if (theme.text) root.style.setProperty('--text', theme.text);
-        if (theme.muted) root.style.setProperty('--muted', theme.muted);
-        if (theme.modalOverlay) root.style.setProperty('--modal-overlay', theme.modalOverlay);
-        if (theme.headingFont) root.style.setProperty('--heading-font', theme.headingFont);
-        if (theme.bodyFont) root.style.setProperty('--body-font', theme.bodyFont);
-        root.style.setProperty('--hover-lift', theme.cardHoverLift === false ? '0' : '-4px');
-        root.style.setProperty('--hover-shadow', theme.cardHoverShadow === false ? 'none' : '0 12px 40px rgba(0,0,0,0.5)');
-        if (theme.cardRadius) root.style.setProperty('--card-radius', theme.cardRadius);
-        if (theme.buttonRadius) root.style.setProperty('--button-radius', theme.buttonRadius);
-      }
-
-      function populateTexts(site) {
-        document.title = site.pageTitle || site.title || 'Library';
-        document.getElementById('site-title').textContent = site.title || '';
-        document.getElementById('site-subtitle').textContent = site.subtitle || '';
-        if (site.searchPlaceholder) searchInput.placeholder = site.searchPlaceholder;
-        
-        const heroSection = document.getElementById('hero-section');
-        if (site.hero && site.hero.show !== false) {
-          heroSection.style.display = 'block';
-          document.getElementById('hero-heading').innerHTML = site.hero.heading || '';
-          document.getElementById('hero-desc').textContent = site.hero.description || '';
-        }
-        
-        // Contact in footer
-        if (site.contact) {
-          const contactEl = document.getElementById('contact-info');
-          let html = '';
-          if (site.contact.email) {
-            html += `<a href="mailto:${site.contact.email}">📧 ${site.contact.email}</a>`;
-          }
-          if (site.contact.phone) {
-            html += `<a href="tel:${site.contact.phone.replace(/\s+/g, '')}">📞 ${site.contact.phone}</a>`;
-          }
-          if (html) {
+          if (site.contact) {
+            const contactEl = document.getElementById('contact-info');
+            let html = '';
+            if (site.contact.email) {
+              html += `<a href="mailto:${site.contact.email}">📧 ${site.contact.email}</a>`;
+            }
+            if (site.contact.phone) {
+              html += `<a href="tel:${site.contact.phone}">📞 ${site.contact.phone}</a>`;
+            }
+            if (site.contact.wave) {
+              html += `<a href="tel:${site.contact.wave}" class="wave-contact">🌊 Wave: ${site.contact.wave}</a>`;
+            }
+            if (site.contact.location) {
+              html += `<a>📍 ${site.contact.location}</a>`;
+            }
             contactEl.innerHTML = html;
-            contactEl.style.display = 'flex';
-            contactEl.style.justifyContent = 'center';
-            contactEl.style.gap = '2rem';
-            contactEl.style.padding = '1rem 0';
           }
-      }
-      
-      // Footer text
-      const footerEl = document.getElementById('footer-text');
-      const footerTextContent = document.getElementById('footer-text-content');
-      if (site.footer && site.footer.show !== false) {
-        footerEl.style.display = 'block';
-        footerTextContent.innerHTML = site.footer.text || '';
-      } else if (site.contact && (site.contact.email || site.contact.phone)) {
-        footerEl.style.display = 'block';
-        footerTextContent.innerHTML = '';
-      }
-    }
-
-      function injectGoogleAnalytics(analytics) {
-        if (analytics && analytics.google_id) {
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${analytics.google_id}`;
-          document.head.appendChild(script);
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', analytics.google_id);
+          
+          if (site.footerText) document.getElementById('footer-text').innerHTML = site.footerText;
         }
-      }
 
-      function injectGlobalComments(comments) {
-        if (comments && comments.enabled && comments.repo) {
-          const container = document.getElementById('global-comments');
+        function injectGoogleAnalytics(analytics) {
+          if (analytics && analytics.enabled && analytics.measurementId) {
+            const script1 = document.createElement('script');
+            script1.async = true;
+            script1.src = `https://www.googletagmanager.com/gtag/js?id=${analytics.measurementId}`;
+            document.head.appendChild(script1);
+            
+            const script2 = document.createElement('script');
+            script2.innerHTML = `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${analytics.measurementId}');
+            `;
+            document.head.appendChild(script2);
+          }
+        }
+
+        function injectGlobalComments(comments) {
+          if (comments && comments.enabled && comments.repo) {
+            const container = document.getElementById('global-comments');
+            const script = document.createElement('script');
+            script.src = "https://giscus.app/client.js";
+            script.setAttribute("data-repo", comments.repo);
+            script.setAttribute("data-repo-id", comments.repoId || "");
+            script.setAttribute("data-category", comments.category || "General");
+            script.setAttribute("data-category-id", comments.categoryId || "");
+            script.setAttribute("data-mapping", "pathname");
+            script.setAttribute("data-strict", "0");
+            script.setAttribute("data-reactions-enabled", "1");
+            script.setAttribute("data-emit-metadata", "0");
+            script.setAttribute("data-input-position", "bottom");
+            script.setAttribute("data-theme", "dark");
+            script.setAttribute("data-lang", "en");
+            script.crossOrigin = "anonymous";
+            script.async = true;
+            container.appendChild(script);
+          }
+        }
+
+        function enableScrollableCategories() {
+          [filtersEl, langFiltersEl].forEach(filters => {
+            if (!filters) return;
+            filters.style.display = 'flex';
+            filters.style.flexWrap = 'nowrap';
+            filters.style.overflowX = 'auto';
+            filters.style.gap = '0.5rem';
+            filters.style.paddingBottom = '6px';
+
+            const buttons = filters.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+              btn.style.flexShrink = '0';
+              btn.style.whiteSpace = 'nowrap';
+            });
+          });
+
+          setTimeout(() => {
+            if (filtersEl && filtersEl.scrollWidth > filtersEl.clientWidth) {
+              filtersEl.scrollBy({ left: 80, behavior: 'smooth' });
+              setTimeout(() => {
+                filtersEl.scrollBy({ left: -80, behavior: 'smooth' });
+              }, 600);
+            }
+          }, 800);
+        }
+
+        function initCategories() {
+          const categories = config.categories || ['All', ...new Set(books.map(b => b.category))];
+          filtersEl.innerHTML = '<span class="filter-label">Category:</span>';
+          
+          categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
+            btn.textContent = cat;
+            btn.addEventListener('click', () => {
+              activeCategory = cat;
+              filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              renderGrid();
+            });
+            filtersEl.appendChild(btn);
+          });
+        }
+
+        function initLanguages() {
+          const languages = ['All', 'Arabic', 'French', 'English'];
+          langFiltersEl.innerHTML = '<span class="filter-label">Language:</span>';
+
+          languages.forEach(lang => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn' + (lang === 'All' ? ' active' : '');
+            btn.textContent = lang === 'All' ? 'Toutes les langues' : lang;
+            btn.addEventListener('click', () => {
+              activeLanguage = lang;
+              langFiltersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              renderGrid();
+            });
+            langFiltersEl.appendChild(btn);
+          });
+        }
+
+        function toggleView() {
+          currentView = currentView === 'books' ? 'articles' : 'books';
+          if (currentView === 'books') {
+            toggleIcon.textContent = '📚';
+            toggleText.textContent = 'Switch to Articles';
+            sectionTitle.textContent = 'Library Collection';
+            filtersContainer.style.display = 'block';
+            
+            activeCategory = 'All';
+            activeLanguage = 'All';
+            filtersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+            langFiltersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+          } else {
+            toggleIcon.textContent = '📰';
+            toggleText.textContent = 'Switch to Books';
+            sectionTitle.textContent = 'Essays & Articles';
+            filtersContainer.style.display = 'none';
+          }
+          if (typeof closeArticle === 'function') closeArticle();
+          renderGrid();
+        }
+        
+        viewToggleBtn.addEventListener('click', toggleView);
+
+        function renderGrid() {
+          const data = currentView === 'books' ? books : articles;
+          const query = searchTerm.toLowerCase().trim();
+          
+          let filtered = data.filter(item => {
+            const matchSearch = !query || item.title.toLowerCase().includes(query) || item.author.toLowerCase().includes(query);
+            
+            if (currentView === 'books') {
+              const matchCat = activeCategory === 'All' || item.category === activeCategory;
+              const matchLang = activeLanguage === 'All' || item.language === activeLanguage;
+              
+              return matchSearch && matchCat && matchLang;
+            }
+            
+            return matchSearch;
+          });
+
+          countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
+          
+          if (!filtered.length) {
+            grid.innerHTML = `<div class="empty">No items found.</div>`;
+            return;
+          }
+          
+          let html = '';
+          filtered.forEach((item, i) => {
+            if (currentView === 'books') {
+              const thumbHtml = item.thumbnail && item.thumbnail.trim() !== '' 
+                ? `<img src="${item.thumbnail}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` 
+                : '';
+              const placeholderHtml = `
+                <div class="placeholder" ${thumbHtml ? 'style="display:none;"' : ''}>
+                  <div class="placeholder-icon">📖</div>
+                  <div class="placeholder-title">${escapeHtml(item.title)}</div>
+                </div>
+              `;
+              const bookData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+              
+              html += `
+                <div class="card" data-book='${bookData}' style="animation-delay: ${i * 0.03}s">
+                  <div class="card-thumb">
+                    ${thumbHtml}
+                    ${placeholderHtml}
+                    <span class="category-tag">${escapeHtml(item.category)}</span>
+                    ${item.language ? `<span class="language-tag">${escapeHtml(item.language)}</span>` : ''}
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title">${escapeHtml(item.title)}</h3>
+                    <div class="card-author">${escapeHtml(item.author)}</div>
+                    <div class="card-desc">${escapeHtml(item.description || 'No description available.')}</div>
+                    <div class="card-actions">
+                      <a href="${item.file}" class="btn btn-primary" download>⬇ Download</a>
+                      <button class="btn btn-secondary preview-btn">👁 Preview</button>
+                    </div>
+                  </div>
+                </div>
+              `;
+            } else {
+              const articleData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+              html += `
+                <div class="card article-card" data-article='${articleData}' style="animation-delay: ${i * 0.03}s">
+                  <div class="card-body">
+                    <span class="category-tag">${escapeHtml(item.category || 'Article')}</span>
+                    <h3 class="card-title">${escapeHtml(item.title)}</h3>
+                    <div class="card-author">${escapeHtml(item.author)}</div>
+                    <div class="card-desc">${escapeHtml(item.description || 'Click to read...')}</div>
+                    <div class="card-actions" style="margin-top: 1.2rem;">
+                      <button class="btn btn-primary read-btn" style="width:100%">Read Article ➔</button>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }
+          });
+          grid.innerHTML = html;
+        }
+
+        // Search listener
+        searchInput.addEventListener('input', (e) => {
+          searchTerm = e.target.value;
+          renderGrid();
+        });
+
+        // Event delegation
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.preview-btn')) {
+            e.preventDefault();
+            const card = e.target.closest('.card');
+            if (card && card.dataset.book) {
+              openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            }
+            return;
+          }
+          if (e.target.closest('.read-btn')) {
+            const card = e.target.closest('.card');
+            if (card && card.dataset.article) {
+              openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            }
+            return;
+          }
+          const card = e.target.closest('.card');
+          if (card && !e.target.closest('a')) {
+            if (card.dataset.book) {
+              openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            } else if (card.dataset.article) {
+              openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            }
+          }
+        });
+
+        function parseShortcodes(text) {
+          let html = text
+            .replace(/\[h1\](.*?)\[\/h1\]/gis, '<h1>$1</h1>')
+            .replace(/\[h2\](.*?)\[\/h2\]/gis, '<h2>$1</h2>')
+            .replace(/\[h3\](.*?)\[\/h3\]/gis, '<h3>$1</h3>')
+            .replace(/\[b\](.*?)\[\/b\]/gis, '<strong>$1</strong>')
+            .replace(/\[i\](.*?)\[\/i\]/gis, '<em>$1</em>')
+            .replace(/\[u\](.*?)\[\/u\]/gis, '<u>$1</u>')
+            .replace(/\[color=(.*?)\](.*?)\[\/color\]/gis, '<span style="color:$1">$2</span>')
+            .replace(/\[center\](.*?)\[\/center\]/gis, '<div style="text-align:center">$1</div>')
+            .replace(/\[quote\](.*?)\[\/quote\]/gis, '<blockquote>$1</blockquote>')
+            .replace(/\[img=(.*?)\]/gis, '<img src="$1" alt="Image">');
+          html = html.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+          return html;
+        }
+
+        async function openArticle(article) {
+          document.getElementById('read-title').textContent = article.title;
+          document.getElementById('read-author').textContent = `By ${article.author}`;
+          document.getElementById('read-category').textContent = article.category || 'Article';
+          document.getElementById('read-content').innerHTML = '<p>Loading...</p>';
+          
+          browseSection.style.display = 'none';
+          articleReader.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          
+          try {
+            const response = await fetch(article.file);
+            if (!response.ok) throw new Error('File not found');
+            const text = await response.text();
+            document.getElementById('read-content').innerHTML = parseShortcodes(text);
+          } catch (err) {
+            document.getElementById('read-content').innerHTML = `<p style="color: var(--accent)">⚠️ Content could not be loaded. Comments are still available below.</p>`;
+          } finally {
+            loadArticleComments(article.title);
+          }
+        }
+
+        function closeArticle() {
+          articleReader.style.display = 'none';
+          browseSection.style.display = 'block';
+          document.getElementById('article-comments').innerHTML = '';
+        }
+        document.getElementById('back-btn').addEventListener('click', closeArticle);
+
+        function loadGiscusComments(containerId, term) {
+          const container = document.getElementById(containerId);
+          container.innerHTML = '';
+          if (!config || !config.comments || !config.comments.enabled || !config.comments.repo) return;
+          
           const script = document.createElement('script');
           script.src = "https://giscus.app/client.js";
-          script.setAttribute("data-repo", comments.repo);
-          if (comments.repoId) script.setAttribute("data-repo-id", comments.repoId);
-          if (comments.category) script.setAttribute("data-category", comments.category);
-          if (comments.categoryId) script.setAttribute("data-category-id", comments.categoryId);
-          script.setAttribute("data-mapping", "pathname");
+          script.setAttribute("data-repo", config.comments.repo);
+          script.setAttribute("data-repo-id", config.comments.repoId || "");
+          script.setAttribute("data-category", config.comments.category || "General");
+          script.setAttribute("data-category-id", config.comments.categoryId || "");
+          script.setAttribute("data-mapping", "specific");
+          script.setAttribute("data-term", term);
           script.setAttribute("data-strict", "0");
           script.setAttribute("data-reactions-enabled", "1");
           script.setAttribute("data-emit-metadata", "0");
@@ -1021,357 +1142,64 @@ function enableScrollableCategories() {
           script.async = true;
           container.appendChild(script);
         }
-      }
 
-      function initCategories() {
-        const categories = config.categories || ['All', ...new Set(books.map(b => b.category))];
-        filtersEl.innerHTML = '<span class="filter-label">Filter:</span>';
-        categories.forEach(cat => {
-          const btn = document.createElement('button');
-          btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
-          btn.textContent = cat;
-          btn.addEventListener('click', () => {
-            activeCategory = cat;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderGrid();
-          });
-          filtersEl.appendChild(btn);
-        });
-      }
-
-      function toggleView() {
-        currentView = currentView === 'books' ? 'articles' : 'books';
-        if (currentView === 'books') {
-          toggleIcon.textContent = '📚';
-          toggleText.textContent = 'Switch to Articles';
-          sectionTitle.textContent = 'Library Collection';
-          filtersContainer.style.display = 'block';
-          activeCategory = 'All';
-          document.querySelectorAll('.filter-btn').forEach((b, i) => {
-            b.classList.toggle('active', i === 0);
-          });
-        } else {
-          toggleIcon.textContent = '📰';
-          toggleText.textContent = 'Switch to Books';
-          sectionTitle.textContent = 'Essays & Articles';
-          filtersContainer.style.display = 'none';
-        }
-        closeArticle();
-        renderGrid();
-      }
-      viewToggleBtn.addEventListener('click', toggleView);
-
-      function renderGrid() {
-        const data = currentView === 'books' ? books : articles;
-        const query = searchTerm.toLowerCase().trim();
-        
-        let filtered = data.filter(item => {
-          const matchSearch = !query || 
-            item.title.toLowerCase().includes(query) || 
-            item.author.toLowerCase().includes(query);
-          if (currentView === 'books') {
-            const matchCat = activeCategory === 'All' || item.category === activeCategory;
-            return matchSearch && matchCat;
-          }
-          return matchSearch;
-        });
-
-        countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
-        
-        if (!filtered.length) {
-          grid.innerHTML = `<div class="empty">No items found.</div>`;
-          return;
+        function loadArticleComments(title) {
+          loadGiscusComments('article-comments', title);
         }
 
-        let html = '';
-        filtered.forEach((item, i) => {
-          if (currentView === 'books') {
-            const thumbHtml = item.thumbnail && item.thumbnail.trim() !== ''
-              ? `<img src="${item.thumbnail}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
-              : '';
-            const placeholderHtml = `
-              <div class="placeholder" ${thumbHtml ? 'style="display:none;"' : ''}>
-                <div class="placeholder-icon">📖</div>
-                <div class="placeholder-title">${escapeHtml(item.title)}</div>
-              </div>
-            `;
-            const bookData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
-            
-            html += `
-              <div class="card" data-book='${bookData}' style="animation-delay: ${i * 0.03}s">
-                <div class="card-thumb">
-                  ${thumbHtml}
-                  ${placeholderHtml}
-                  <span class="category-tag">${escapeHtml(item.category)}</span>
-                  ${item.language ? `<span class="language-tag">${escapeHtml(item.language)}</span>` : ''}
-                </div>
-                <div class="card-body">
-                  <div class="card-title">${escapeHtml(item.title)}</div>
-                  <div class="card-author">${escapeHtml(item.author)}</div>
-                  <div class="card-desc">${escapeHtml(item.description)}</div>
-                  <div class="card-actions">
-                    <a class="btn btn-primary" href="${item.file}" download>Download</a>
-                    <button class="btn btn-secondary preview-btn">Preview</button>
-                  </div>
-                </div>
-              </div>
-            `;
+        // --- Book Modal ---
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalAuthor = document.getElementById('modal-author');
+        const modalFrame = document.getElementById('modal-frame');
+        const modalDownload = document.getElementById('modal-download');
+        const modalComments = document.getElementById('modal-comments-container');
+
+        function openBookModal(book) {
+          modalTitle.textContent = book.title;
+          modalAuthor.textContent = 'by ' + book.author;
+          
+          const pdfUrl = new URL(book.file, window.location.href).href;
+          const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+          
+          if (isMobile) {
+            modalFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
           } else {
-            const articleData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
-            html += `
-              <div class="card article-card" data-article='${articleData}' style="animation-delay: ${i * 0.03}s">
-                <div class="card-body">
-                  <span class="category-tag">${escapeHtml(item.category || 'Article')}</span>
-                  <div class="card-title">${escapeHtml(item.title)}</div>
-                  <div class="card-author">${escapeHtml(item.author)}</div>
-                  <div class="card-desc">${escapeHtml(item.description)}</div>
-                  <div class="card-actions">
-                    <button class="btn btn-primary read-btn">Read Article</button>
-                  </div>
-                </div>
-              </div>
-            `;
+            modalFrame.src = pdfUrl + '#view=FitH';
           }
+          
+          modalFrame.onerror = () => {
+            modalFrame.srcdoc = `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#0d0d0d;color:#e8e0d0;">Preview unavailable.</div>`;
+          };
+          
+          modalDownload.href = book.file;
+          modalDownload.download = book.title.replace(/\s+/g, '_') + '.pdf';
+          
+          loadModalComments(book.title);
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookModal() {
+          modal.classList.remove('open');
+          document.body.style.overflow = '';
+          modalFrame.src = '';
+          modalComments.innerHTML = '';
+        }
+
+        function loadModalComments(title) {
+          loadGiscusComments('modal-comments-container', title);
+        }
+
+        document.getElementById('modal-close').addEventListener('click', closeBookModal);
+        document.getElementById('modal-close-footer').addEventListener('click', closeBookModal);
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeBookModal();
         });
-        grid.innerHTML = html;
-      }
 
-      // Event delegation
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('.preview-btn')) {
-          e.preventDefault();
-          const card = e.target.closest('.card');
-          if (card && card.dataset.book) {
-            openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
-          return;
-        }
-        if (e.target.closest('.read-btn')) {
-          const card = e.target.closest('.card');
-          if (card && card.dataset.article) {
-            openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
-          return;
-        }
-        const card = e.target.closest('.card');
-        if (card && !e.target.closest('a')) {
-          if (card.dataset.book) {
-            openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          } else if (card.dataset.article) {
-            openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
-        }
-      });
-
-      function parseShortcodes(text) {
-        let html = text
-          .replace(/\[h1\](.*?)\[\/h1\]/gis, '<h1>$1</h1>')
-          .replace(/\[h2\](.*?)\[\/h2\]/gis, '<h2>$1</h2>')
-          .replace(/\[h3\](.*?)\[\/h3\]/gis, '<h3>$1</h3>')
-          .replace(/\[b\](.*?)\[\/b\]/gis, '<strong>$1</strong>')
-          .replace(/\[i\](.*?)\[\/i\]/gis, '<em>$1</em>')
-          .replace(/\[u\](.*?)\[\/u\]/gis, '<u>$1</u>')
-          .replace(/\[color=(.*?)\](.*?)\[\/color\]/gis, '<span style="color:$1">$2</span>')
-          .replace(/\[center\](.*?)\[\/center\]/gis, '<div style="text-align:center">$1</div>')
-          .replace(/\[quote\](.*?)\[\/quote\]/gis, '<blockquote>$1</blockquote>')
-          .replace(/\[img=(.*?)\]/gis, '<img src="$1" alt="Image">');
-        html = html.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-        return html;
-      }
-
-      async function openArticle(article) {
-        document.getElementById('read-title').textContent = article.title;
-        document.getElementById('read-author').textContent = `By ${article.author}`;
-        document.getElementById('read-category').textContent = article.category || 'Article';
-        document.getElementById('read-content').innerHTML = '<p>Loading...</p>';
-
-        browseSection.style.display = 'none';
-        articleReader.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        try {
-          const response = await fetch(article.file);
-          if (!response.ok) throw new Error('File not found');
-          const text = await response.text();
-          document.getElementById('read-content').innerHTML = parseShortcodes(text);
-        } catch (err) {
-          document.getElementById('read-content').innerHTML = `<p style="color: var(--accent)">⚠️ Content could not be loaded. Comments are still available below.</p>`;
-        } finally {
-          loadArticleComments(article.title);
-        }
-      }
-
-      function closeArticle() {
-        browseSection.style.display = 'block';
-        articleReader.style.display = 'none';
-        document.getElementById('article-comments').innerHTML = '';
-      }
-      window.closeArticle = closeArticle;
-
-      // --- Giscus Loader ---
-      function loadGiscusComments(containerId, term) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        const cleanTerm = term.trim().substring(0, 200);
-        
-        if (!giscusScriptLoaded) {
-          const script = document.createElement('script');
-          script.src = 'https://giscus.app/client.js';
-          script.setAttribute('data-repo', config.comments.repo);
-          if (config.comments.repoId) script.setAttribute('data-repo-id', config.comments.repoId);
-          if (config.comments.category) script.setAttribute('data-category', config.comments.category);
-          if (config.comments.categoryId) script.setAttribute('data-category-id', config.comments.categoryId);
-          script.setAttribute('data-mapping', 'specific');
-          script.setAttribute('data-term', cleanTerm);
-          script.setAttribute('data-strict', '0');
-          script.setAttribute('data-reactions-enabled', '1');
-          script.setAttribute('data-emit-metadata', '0');
-          script.setAttribute('data-input-position', 'bottom');
-          script.setAttribute('data-theme', 'dark');
-          script.setAttribute('data-lang', 'en');
-          script.setAttribute('crossorigin', 'anonymous');
-          script.async = true;
-          script.onload = () => { giscusScriptLoaded = true; };
-          container.innerHTML = '';
-          container.appendChild(script);
-        } else {
-          if (window.giscus && typeof window.giscus.sendMessage === 'function') {
-            window.giscus.sendMessage({ setConfig: { term: cleanTerm } });
-            container.innerHTML = '';
-          } else {
-            container.innerHTML = '';
-            const newScript = document.createElement('script');
-            newScript.src = 'https://giscus.app/client.js';
-            newScript.setAttribute('data-repo', config.comments.repo);
-            if (config.comments.repoId) newScript.setAttribute('data-repo-id', config.comments.repoId);
-            if (config.comments.category) newScript.setAttribute('data-category', config.comments.category);
-            if (config.comments.categoryId) newScript.setAttribute('data-category-id', config.comments.categoryId);
-            newScript.setAttribute('data-mapping', 'specific');
-            newScript.setAttribute('data-term', cleanTerm);
-            newScript.setAttribute('data-strict', '0');
-            newScript.setAttribute('data-reactions-enabled', '1');
-            newScript.setAttribute('data-emit-metadata', '0');
-            newScript.setAttribute('data-input-position', 'bottom');
-            newScript.setAttribute('data-theme', 'dark');
-            newScript.setAttribute('data-lang', 'en');
-            newScript.setAttribute('crossorigin', 'anonymous');
-            newScript.async = true;
-            container.appendChild(newScript);
-          }
-        }
-      }
-
-      function loadArticleComments(title) {
-        loadGiscusComments('article-comments', title);
-      }
-
-      // --- Book Modal ---
-      const modal = document.getElementById('modal');
-      const modalTitle = document.getElementById('modal-title');
-      const modalAuthor = document.getElementById('modal-author');
-      const modalFrame = document.getElementById('modal-frame');
-      const modalDownload = document.getElementById('modal-download');
-      const modalComments = document.getElementById('modal-comments-container');
-
-      function openBookModal(book) {
-        modalTitle.textContent = book.title;
-        modalAuthor.textContent = 'by ' + book.author;
-        
-        const pdfUrl = new URL(book.file, window.location.href).href;
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        
-        if (isMobile) {
-          modalFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-        } else {
-          modalFrame.src = pdfUrl + '#view=FitH';
-        }
-        
-        modalFrame.onerror = () => {
-          modalFrame.srcdoc = `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#0d0d0d;color:#e8e0d0;">Preview unavailable.</div>`;
-        };
-        
-        modalDownload.href = book.file;
-        modalDownload.download = book.title.replace(/\s+/g, '_') + '.pdf';
-        
-        loadModalComments(book.title);
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function loadModalComments(title) {
-        loadGiscusComments('modal-comments-container', title);
-      }
-      
-      function closeModal() {
-        modal.classList.remove('open');
-        modalFrame.src = '';
-        modalComments.innerHTML = '';
-        document.body.style.overflow = '';
-      }
-
-      document.getElementById('modal-close').addEventListener('click', closeModal);
-      document.getElementById('modal-close-footer').addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-      // Search
-      let searchTimeout;
-      searchInput.addEventListener('input', () => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          searchTerm = searchInput.value;
-          renderGrid();
-        }, 200);
-      });
-
-      // Start
-      loadData();
-    })();
-  </script>
- <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-<script>
-  kofiWidgetOverlay.draw('mourtada', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support', 
-    'floating-chat.donateButton.background-color': '#c9a84c',
-    'floating-chat.donateButton.text-color': '#0d0d0d'
-  });
-</script>
-
-<button id="waveBtn" style="background-color: #1db7ec; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; font-size: 24px; position: fixed; bottom: 85px; left: 20px; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.2); cursor: pointer; display: flex; justify-content: center; align-items: center;" title="Faites un don avec Wave">
-  🌊
-</button>
-
-<dialog id="waveModal" style="border: none; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-width: 320px;">
-  <h3 style="margin-top: 0; color: #333; font-family: sans-serif;">Support via Wave</h3>
-  <p style="color: #666; font-size: 14px; font-family: sans-serif; margin-bottom: 15px;">Open your Wave app to scan, or send directly to the number below:</p>
-  
-  <img src="wave-qr-code.png" alt="Wave QR Code" style="width: 180px; height: 180px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #ddd;">
-  
-  <div style="background-color: #f0f8ff; border: 1px solid #bce0f5; border-radius: 8px; padding: 12px; margin-bottom: 20px;">
-    <p style="margin: 0; font-size: 13px; color: #555; font-family: sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Wave Number</p>
-    <p style="margin: 5px 0 0 0; font-size: 20px; font-weight: bold; color: #1db7ec; font-family: monospace;">+221 77 289 20 88</p>
-  </div>
-  
-  <button id="closeWaveBtn" style="background-color: #f1f1f1; color: #333; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">
-    Close
-  </button>
-</dialog>
-
-<script>
-  const waveBtn = document.getElementById('waveBtn');
-  const waveModal = document.getElementById('waveModal');
-  const closeWaveBtn = document.getElementById('closeWaveBtn');
-
-  waveBtn.addEventListener('click', () => {
-    waveModal.showModal();
-  });
-
-  closeWaveBtn.addEventListener('click', () => {
-    waveModal.close();
-  });
-</script>
+        // Initialize
+        loadData();
+      })();
+    </script>
 </body>
 </html>
