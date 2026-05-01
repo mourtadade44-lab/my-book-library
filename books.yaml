@@ -349,7 +349,7 @@ books:
     description: "من إسهام الشيخ الخديم في الفقه المالكي "
     category: "Humanities & Thought"
     language: "Arabic"
-    thumbnail: "bamba.jfif"
+    thumbnail: "thumbnails/bamba.jfif"
     file: "book/من إسهام الشيخ الخديم في الفقه المالكي - Copie - Copie.pdf"
 
   - title: "الإسلام الأسود"
@@ -365,7 +365,7 @@ books:
     description: "التعايش السلمي عند الشيخ الخديم فكرا وممارسة"
     category: "Humanities & Thought"
     language: "Arabic"
-    thumbnail: "bamba.jfifi"
+    thumbnail: "thumbnails/bamba.jfifi"
     file: "books/التعايش السلمي عند الشيخ الخديم فكرا وممارسة د شيخ انجاي.pdf"
 
   - title: "الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ"
@@ -373,7 +373,7 @@ books:
     description: "الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ"
     category: "Biography"
     language: "Arabic"
-    thumbnail: ""
+    thumbnail: "thumbnails/touba.jpg"
     file: "books/الشيخُ شعيبُ امبَاكِي…العارفُ الرّبّانيُّ.pdf"
 
   - title: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق"
@@ -381,7 +381,7 @@ books:
     description: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق"
     category: "Biography"
     language: "Arabic"
-    thumbnail: "thumbnails/placeholder.jpg"
+    thumbnail: "thumbnails/touba.jpg"
     file: "books/الشيخُ عبد القادر الإمام العالم السني والمريد الصادق.pdf"
 
   - title: "تطريز الأشعار عند العبد الخديم"
@@ -389,7 +389,7 @@ books:
     description: "تطريز الأشعار عند العبد الخديم"
     category: "Humanities & Thought"
     language: "Arabic"
-    thumbnail: "bamba.jfif"
+    thumbnail: "thumbnails/bamba.jfif"
     file: "books/تطريز الأشعار عند العبد الخديم.pdf"
 
   - title: "عناية الشيخ الخديم بالمسجد"
@@ -397,7 +397,7 @@ books:
     description: "عناية الشيخ الخديم بالمسجد"
     category: "Humanities & Thought"
     language: "Arabic"
-    thumbnail: "bamba.jfif"
+    thumbnail: "thumbnails/bamba.jfif"
     file: "books/عناية الشيخ بالمسجد - Copie (2).pdf"
 
   - title: "طوبى محل وسلوك"
@@ -405,7 +405,7 @@ books:
     description: "مدينة طوبى المحروسة"
     category: "Humanities & Thought"
     language: "Arabic"
-    thumbnail: "touba.jpg"
+    thumbnail: "thumbnails/touba.jpg"
     file: "books/طوبى محل وسلوك.pdf"
 
   - title: "الوصايا"
@@ -413,7 +413,7 @@ books:
     description: "وصايا صوفية"
     category: "Religion & Spirituality"
     language: "Arabic"
-    thumbnail: "وصايا.png"
+    thumbnail: "thumbnails/وصايا.png"
     file: "books/الوصايا.pdf"
 
   - title: "المروءة وخوارمها"
@@ -421,5 +421,5 @@ books:
     description: "المروءة وخوارمها"
     category: "Religion & Spirituality"
     language: "Arabic"
-    thumbnail: "المروءة.png"
+    thumbnail: "thumbnails/المروءة.png"
     file: "books/المروءة وخوارمها.pdf"
