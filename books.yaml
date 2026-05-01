@@ -358,7 +358,7 @@ books:
     category: "Humanities & Thought"
     language: "Arabic"
     thumbnail: "thumbnails/placeholder.jpg"
-    file: "Noor-Book.com  الاسلام الأسود محمد شقرون 2 .pdf"
+    file: "books/Noor-Book.com  الاسلام الأسود محمد شقرون 2 .pdf"
 
   - title: "التعايش السلمي عند الشيخ الخديم فكرا وممارسة "
     author: "د شيخ انجاي"
@@ -366,7 +366,7 @@ books:
     category: "Humanities & Thought"
     language: "Arabic"
     thumbnail: "bamba.jfifi"
-    file: "التعايش السلمي عند الشيخ الخديم فكرا وممارسة د شيخ انجاي.pdf"
+    file: "books/التعايش السلمي عند الشيخ الخديم فكرا وممارسة د شيخ انجاي.pdf"
 
   - title: "الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ"
     author: "أبو مدين شعيب تياو الأزهري الطوبوي"
@@ -374,7 +374,7 @@ books:
     category: "Biography"
     language: "Arabic"
     thumbnail: ""
-    file: "الشيخُ شعيبُ امبَاكِي…العارفُ الرّبّانيُّ.pdf"
+    file: "books/الشيخُ شعيبُ امبَاكِي…العارفُ الرّبّانيُّ.pdf"
 
   - title: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق"
     author: "أبو مدين شعيب تياو الأزهري الطوبوي"
@@ -382,7 +382,7 @@ books:
     category: "Biography"
     language: "Arabic"
     thumbnail: "thumbnails/placeholder.jpg"
-    file: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق.pdf"
+    file: "books/الشيخُ عبد القادر الإمام العالم السني والمريد الصادق.pdf"
 
   - title: "تطريز الأشعار عند العبد الخديم"
     author: "أبو مدين شعيب تياو الأزهري الطوبوي"
@@ -390,7 +390,7 @@ books:
     category: "Humanities & Thought"
     language: "Arabic"
     thumbnail: "bamba.jfif"
-    file: "تطريز الأشعار عند العبد الخديم.pdf"
+    file: "books/تطريز الأشعار عند العبد الخديم.pdf"
 
   - title: "عناية الشيخ الخديم بالمسجد"
     author: "أبو مدين شعيب تياو الأزهري الطوبوي"
@@ -398,7 +398,7 @@ books:
     category: "Humanities & Thought"
     language: "Arabic"
     thumbnail: "bamba.jfif"
-    file: "عناية الشيخ بالمسجد - Copie (2).pdf"
+    file: "books/عناية الشيخ بالمسجد - Copie (2).pdf"
 
   - title: "طوبى محل وسلوك"
     author: "شيخ أحمد مباكي نيانغ"
@@ -406,7 +406,7 @@ books:
     category: "Humanities & Thought"
     language: "Arabic"
     thumbnail: "touba.jpg"
-    file: "طوبى محل وسلوك.pdf"
+    file: "books/طوبى محل وسلوك.pdf"
 
   - title: "الوصايا"
     author: "ابن عربي"
@@ -414,7 +414,7 @@ books:
     category: "Religion & Spirituality"
     language: "Arabic"
     thumbnail: "وصايا.png"
-    file: "الوصايا.pdf"
+    file: "books/الوصايا.pdf"
 
   - title: "المروءة وخوارمها"
     author: "أبو عبيدة مشهور بن حسن آل سلمان"
@@ -422,4 +422,4 @@ books:
     category: "Religion & Spirituality"
     language: "Arabic"
     thumbnail: "المروءة.png"
-    file: "المروءة وخوارمها.pdf"
+    file: "books/المروءة وخوارمها.pdf"
