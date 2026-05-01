@@ -658,9 +658,17 @@
         <p id="hero-desc"></p>
       </div>
 
-      <div id="filters-container" style="display: block;">
+     <div id="filters-container" style="display: block;">
         <div class="filters" id="filters">
-          <span class="filter-label">Filter:</span>
+          <span class="filter-label">Topic:</span>
+        </div>
+        
+        <div class="filters" id="language-filters" style="margin-top: 10px;">
+          <span class="filter-label">Language:</span>
+          <button class="lang-btn filter-btn active" data-lang="All">All</button>
+          <button class="lang-btn filter-btn" data-lang="Arabic">Arabic</button>
+          <button class="lang-btn filter-btn" data-lang="French">French</button>
+          <button class="lang-btn filter-btn" data-lang="English">English</button>
         </div>
       </div>
 
@@ -726,6 +734,7 @@
       let activeCategory = 'All';
       let searchTerm = '';
       let giscusScriptLoaded = false;
+      let activeLanguage = 'All';
 
       // DOM elements
       const grid = document.getElementById('grid');
@@ -924,7 +933,22 @@ function enableScrollableCategories() {
           filtersEl.appendChild(btn);
         });
       }
-
+      
+// Make the Language buttons work
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remember which language was clicked
+          activeLanguage = btn.getAttribute('data-lang');
+          
+          // Move the yellow active color to the clicked button
+          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Refresh the library to show the results
+          renderGrid();
+        });
+      });
+      
       function toggleView() {
         currentView = currentView === 'books' ? 'articles' : 'books';
         if (currentView === 'books') {
@@ -955,9 +979,11 @@ function enableScrollableCategories() {
           const matchSearch = !query || 
             item.title.toLowerCase().includes(query) || 
             item.author.toLowerCase().includes(query);
-          if (currentView === 'books') {
+         if (currentView === 'books') {
             const matchCat = activeCategory === 'All' || item.category === activeCategory;
-            return matchSearch && matchCat;
+            const matchLang = activeLanguage === 'All' || item.language === activeLanguage;
+            
+            return matchSearch && matchCat && matchLang;
           }
           return matchSearch;
         });
