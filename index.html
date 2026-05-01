@@ -660,15 +660,12 @@
 
       <div id="filters-container" style="display: block;">
         <div class="filters" id="filters">
-          <span class="filter-label">Filter:</span>
+          <span class="filter-label">Category:</span>
+        </div>
+        <div class="filters" id="lang-filters" style="margin-top: 5px;">
+          <span class="filter-label">Language:</span>
         </div>
       </div>
-
-      <h2 class="section-title" id="section-title">Library Collection</h2>
-      <div class="grid" id="grid">
-        <div class="loading">Loading...</div>
-      </div>
-    </div>
 
     <!-- Article Reader View -->
     <div id="article-reader">
@@ -724,6 +721,7 @@
       let articles = [];
       let currentView = 'books';
       let activeCategory = 'All';
+      let activeLanguage = 'All'; // <-- Added Language Tracker
       let searchTerm = '';
       let giscusScriptLoaded = false;
 
@@ -731,6 +729,7 @@
       const grid = document.getElementById('grid');
       const searchInput = document.getElementById('search');
       const filtersEl = document.getElementById('filters');
+      const langFiltersEl = document.getElementById('lang-filters'); // <-- Added Language Element
       const filtersContainer = document.getElementById('filters-container');
       const countEl = document.getElementById('count');
       const sectionTitle = document.getElementById('section-title');
@@ -763,19 +762,135 @@
           const configText = await configRes.text();
           const booksText = await booksRes.text();
           const articlesText = await articlesRes.text();
-
+          
           config = jsyaml.load(configText);
           books = jsyaml.load(booksText)?.books || [];
           articles = jsyaml.load(articlesText)?.articles || [];
-
+          
           applyTheme(config.theme);
           populateTexts(config.site);
           injectGoogleAnalytics(config.analytics);
           injectGlobalComments(config.comments);
           
           initCategories();
+          initLanguages(); // <-- Added Language Initializer
+          
           setTimeout(enableScrollableCategories, 100);
           renderGrid();
+        } catch (error) {
+          console.error('Failed to load YAML:', error);
+          grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
+        }
+      }
+
+      function enableScrollableCategories() {
+        [filtersEl, langFiltersEl].forEach(filters => {
+          if (!filters) return;
+          filters.style.display = 'flex';
+          filters.style.flexWrap = 'nowrap';
+          filters.style.overflowX = 'auto';
+          filters.style.gap = '0.5rem';
+          filters.style.paddingBottom = '6px';
+
+          const buttons = filters.querySelectorAll('.filter-btn');
+          buttons.forEach(btn => {
+            btn.style.flexShrink = '0';
+            btn.style.whiteSpace = 'nowrap';
+          });
+        });
+
+        // Auto‑scroll hint (only if content overflows)
+        setTimeout(() => {
+          if (filtersEl && filtersEl.scrollWidth > filtersEl.clientWidth) {
+            filtersEl.scrollBy({ left: 80, behavior: 'smooth' });
+            setTimeout(() => {
+              filtersEl.scrollBy({ left: -80, behavior: 'smooth' });
+            }, 600);
+          }
+        }, 800);
+      }
+
+      function applyTheme(theme) { /* ... keep the existing code here ... */ }
+      function populateTexts(site) { /* ... keep the existing code here ... */ }
+      function injectGoogleAnalytics(analytics) { /* ... keep the existing code here ... */ }
+      function injectGlobalComments(comments) { /* ... keep the existing code here ... */ }
+
+      function initCategories() {
+        const categories = config.categories || ['All', ...new Set(books.map(b => b.category))];
+        filtersEl.innerHTML = '<span class="filter-label">Category:</span>';
+        
+        categories.forEach(cat => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
+          btn.textContent = cat;
+          btn.addEventListener('click', () => {
+            activeCategory = cat;
+            filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGrid();
+          });
+          filtersEl.appendChild(btn);
+        });
+      }
+
+      function initLanguages() {
+        const languages = ['All', 'Arabic', 'French', 'English'];
+        langFiltersEl.innerHTML = '<span class="filter-label">Language:</span>';
+
+        languages.forEach(lang => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn' + (lang === 'All' ? ' active' : '');
+          btn.textContent = lang === 'All' ? 'Toutes les langues' : lang;
+          btn.addEventListener('click', () => {
+            activeLanguage = lang;
+            langFiltersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGrid();
+          });
+          langFiltersEl.appendChild(btn);
+        });
+      }
+
+      function toggleView() {
+        currentView = currentView === 'books' ? 'articles' : 'books';
+        if (currentView === 'books') {
+          toggleIcon.textContent = '📚';
+          toggleText.textContent = 'Switch to Articles';
+          sectionTitle.textContent = 'Library Collection';
+          filtersContainer.style.display = 'block';
+          
+          activeCategory = 'All';
+          activeLanguage = 'All';
+          filtersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+          langFiltersEl.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+        } else {
+          toggleIcon.textContent = '📰';
+          toggleText.textContent = 'Switch to Books';
+          sectionTitle.textContent = 'Essays & Articles';
+          filtersContainer.style.display = 'none';
+        }
+        if (typeof closeArticle === 'function') closeArticle();
+        renderGrid();
+      }
+      
+      viewToggleBtn.addEventListener('click', toggleView);
+
+      function renderGrid() {
+        const data = currentView === 'books' ? books : articles;
+        const query = searchTerm.toLowerCase().trim();
+        
+        let filtered = data.filter(item => {
+          const matchSearch = !query || item.title.toLowerCase().includes(query) || item.author.toLowerCase().includes(query);
+          
+          if (currentView === 'books') {
+            const matchCat = activeCategory === 'All' || item.category === activeCategory;
+            const matchLang = activeLanguage === 'All' || item.language === activeLanguage;
+            
+            return matchSearch && matchCat && matchLang;
+          }
+          
+          return matchSearch;
+        });
         } catch (error) {
           console.error('Failed to load YAML:', error);
           grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
