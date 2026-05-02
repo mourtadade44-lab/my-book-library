@@ -1331,46 +1331,6 @@ document.getElementById('clear-filters-btn').addEventListener('click', () => {
 // -----------------------------------
   document.getElementById('sort-dropdown').addEventListener('change', renderGrid);
   
-// --- SHAREABLE LINKS LOGIC START ---
-
-// 1. Read the link when the page first opens
-const currentUrl = new URLSearchParams(window.location.search);
-let linkHasFilters = false;
-
-if (currentUrl.has('topic')) {
-  activeCategory = currentUrl.get('topic');
-  document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
-  const topicBtn = document.querySelector(`#filters .filter-btn[data-filter="${activeCategory}"]`);
-  if (topicBtn) topicBtn.classList.add('active');
-  linkHasFilters = true;
-}
-
-if (currentUrl.has('lang')) {
-  activeLanguage = currentUrl.get('lang');
-  document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
-  const langBtn = document.querySelector(`#language-filters .filter-btn[data-lang="${activeLanguage}"]`);
-  if (langBtn) langBtn.classList.add('active');
-  linkHasFilters = true;
-}
-
-// THE FIX: If the link had filters, tell the grid to redraw the books right away!
-if (linkHasFilters) {
-  renderGrid();
-}
-
-// 2. Update the link quietly whenever you click any filter button
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('filter-btn') || event.target.classList.contains('lang-btn')) {
-    setTimeout(() => {
-      const newUrl = new URL(window.location);
-      newUrl.searchParams.set('topic', activeCategory);
-      newUrl.searchParams.set('lang', activeLanguage);
-      window.history.replaceState({}, '', newUrl);
-    }, 50); 
-  }
-});
-// --- SHAREABLE LINKS LOGIC END ---
-  
 </script>
 </body>
 </html>
