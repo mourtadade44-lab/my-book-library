@@ -1335,27 +1335,32 @@ document.getElementById('clear-filters-btn').addEventListener('click', () => {
 
 // 1. Read the link when the page first opens
 const currentUrl = new URLSearchParams(window.location.search);
+let linkHasFilters = false;
 
 if (currentUrl.has('topic')) {
   activeCategory = currentUrl.get('topic');
-  // Update the yellow colors for the Topic buttons
   document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
   const topicBtn = document.querySelector(`#filters .filter-btn[data-filter="${activeCategory}"]`);
   if (topicBtn) topicBtn.classList.add('active');
+  linkHasFilters = true;
 }
 
 if (currentUrl.has('lang')) {
   activeLanguage = currentUrl.get('lang');
-  // Update the yellow colors for the Language buttons
   document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
   const langBtn = document.querySelector(`#language-filters .filter-btn[data-lang="${activeLanguage}"]`);
   if (langBtn) langBtn.classList.add('active');
+  linkHasFilters = true;
+}
+
+// THE FIX: If the link had filters, tell the grid to redraw the books right away!
+if (linkHasFilters) {
+  renderGrid();
 }
 
 // 2. Update the link quietly whenever you click any filter button
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('filter-btn') || event.target.classList.contains('lang-btn')) {
-    // Wait a tiny millisecond for the website to register the click, then update the URL
     setTimeout(() => {
       const newUrl = new URL(window.location);
       newUrl.searchParams.set('topic', activeCategory);
