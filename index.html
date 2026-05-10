@@ -774,6 +774,16 @@
           .replace(/'/g, '&#39;');
       }
 
+      // Helper: slugify a title for use in URL hash
+      function slugify(text) {
+        return text.toString().toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]+/g, '')
+          .replace(/\-\-+/g, '-')
+          .replace(/^-+/, '')
+          .replace(/-+$/, '');
+      }
+
       // --- Load all YAML files ---
       async function loadData() {
         try {
@@ -799,39 +809,41 @@
           initCategories();
           setTimeout(enableScrollableCategories, 100);
           renderGrid();
+
+          // Handle direct links (hash in URL)
+          handleHashChange();
         } catch (error) {
           console.error('Failed to load YAML:', error);
           grid.innerHTML = `<div class="empty">Failed to load library. Check console.</div>`;
         }
       }
-function enableScrollableCategories() {
-  const filters = document.getElementById('filters');
-  if (!filters) return;
 
-  // Apply scrollable styles programmatically (optional, if CSS not already applied)
-  filters.style.display = 'flex';
-  filters.style.flexWrap = 'nowrap';
-  filters.style.overflowX = 'auto';
-  filters.style.gap = '0.5rem';
-  filters.style.paddingBottom = '6px';
+      function enableScrollableCategories() {
+        const filters = document.getElementById('filters');
+        if (!filters) return;
 
-  // Make all filter buttons non-shrinking
-  const buttons = filters.querySelectorAll('.filter-btn');
-  buttons.forEach(btn => {
-    btn.style.flexShrink = '0';
-    btn.style.whiteSpace = 'nowrap';
-  });
+        filters.style.display = 'flex';
+        filters.style.flexWrap = 'nowrap';
+        filters.style.overflowX = 'auto';
+        filters.style.gap = '0.5rem';
+        filters.style.paddingBottom = '6px';
 
-  // Auto‑scroll hint (only if content overflows)
-  setTimeout(() => {
-    if (filters.scrollWidth > filters.clientWidth) {
-      filters.scrollBy({ left: 80, behavior: 'smooth' });
-      setTimeout(() => {
-        filters.scrollBy({ left: -80, behavior: 'smooth' });
-      }, 600);
-    }
-  }, 800);
-}
+        const buttons = filters.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+          btn.style.flexShrink = '0';
+          btn.style.whiteSpace = 'nowrap';
+        });
+
+        setTimeout(() => {
+          if (filters.scrollWidth > filters.clientWidth) {
+            filters.scrollBy({ left: 80, behavior: 'smooth' });
+            setTimeout(() => {
+              filters.scrollBy({ left: -80, behavior: 'smooth' });
+            }, 600);
+          }
+        }, 800);
+      }
+
       function applyTheme(theme) {
         if (!theme) return;
         const root = document.documentElement;
@@ -865,7 +877,6 @@ function enableScrollableCategories() {
           document.getElementById('hero-desc').textContent = site.hero.description || '';
         }
         
-        // Contact in footer
         if (site.contact) {
           const contactEl = document.getElementById('contact-info');
           let html = '';
@@ -882,19 +893,18 @@ function enableScrollableCategories() {
             contactEl.style.gap = '2rem';
             contactEl.style.padding = '1rem 0';
           }
+        }
+
+        const footerEl = document.getElementById('footer-text');
+        const footerTextContent = document.getElementById('footer-text-content');
+        if (site.footer && site.footer.show !== false) {
+          footerEl.style.display = 'block';
+          footerTextContent.innerHTML = site.footer.text || '';
+        } else if (site.contact && (site.contact.email || site.contact.phone)) {
+          footerEl.style.display = 'block';
+          footerTextContent.innerHTML = '';
+        }
       }
-      
-      // Footer text
-      const footerEl = document.getElementById('footer-text');
-      const footerTextContent = document.getElementById('footer-text-content');
-      if (site.footer && site.footer.show !== false) {
-        footerEl.style.display = 'block';
-        footerTextContent.innerHTML = site.footer.text || '';
-      } else if (site.contact && (site.contact.email || site.contact.phone)) {
-        footerEl.style.display = 'block';
-        footerTextContent.innerHTML = '';
-      }
-    }
 
       function injectGoogleAnalytics(analytics) {
         if (analytics && analytics.google_id) {
@@ -940,7 +950,7 @@ function enableScrollableCategories() {
           btn.textContent = cat;
           btn.addEventListener('click', () => {
             activeCategory = cat;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderGrid();
           });
@@ -948,17 +958,11 @@ function enableScrollableCategories() {
         });
       }
       
-// Make the Language buttons work
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          // Remember which language was clicked
           activeLanguage = btn.getAttribute('data-lang');
-          
-          // Move the yellow active color to the clicked button
-          document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          
-          // Refresh the library to show the results
           renderGrid();
         });
       });
@@ -971,7 +975,7 @@ function enableScrollableCategories() {
           sectionTitle.textContent = 'Library Collection';
           filtersContainer.style.display = 'block';
           activeCategory = 'All';
-          document.querySelectorAll('.filter-btn').forEach((b, i) => {
+          document.querySelectorAll('#filters .filter-btn').forEach((b, i) => {
             b.classList.toggle('active', i === 0);
           });
         } else {
@@ -993,17 +997,15 @@ function enableScrollableCategories() {
           const matchSearch = !query || 
             item.title.toLowerCase().includes(query) || 
             item.author.toLowerCase().includes(query);
-         if (currentView === 'books') {
+          if (currentView === 'books') {
             const matchCat = activeCategory === 'All' || item.category === activeCategory;
             const matchLang = activeLanguage === 'All' || item.language === activeLanguage;
-            
             return matchSearch && matchCat && matchLang;
           }
           return matchSearch;
         });
-// --- SORTING LOGIC START ---
+
         const sortValue = document.getElementById('sort-dropdown').value;
-        
         if (sortValue === 'title-az') {
           filtered.sort((a, b) => String(a.title || '').localeCompare(String(b.title || '')));
         } else if (sortValue === 'title-za') {
@@ -1011,7 +1013,6 @@ function enableScrollableCategories() {
         } else if (sortValue === 'author-az') {
           filtered.sort((a, b) => String(a.author || '').localeCompare(String(b.author || '')));
         }
-        // --- SORTING LOGIC END ---
         
         countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
         
@@ -1022,6 +1023,7 @@ function enableScrollableCategories() {
 
         let html = '';
         filtered.forEach((item, i) => {
+          const slug = slugify(item.title);
           if (currentView === 'books') {
             const thumbHtml = item.thumbnail && item.thumbnail.trim() !== ''
               ? `<img src="${item.thumbnail}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
@@ -1035,7 +1037,7 @@ function enableScrollableCategories() {
             const bookData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
             
             html += `
-              <div class="card" data-book='${bookData}' style="animation-delay: ${i * 0.03}s">
+              <div class="card" data-type="book" data-book='${bookData}' data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
                 <div class="card-thumb">
                   ${thumbHtml}
                   ${placeholderHtml}
@@ -1056,7 +1058,7 @@ function enableScrollableCategories() {
           } else {
             const articleData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
             html += `
-              <div class="card article-card" data-article='${articleData}' style="animation-delay: ${i * 0.03}s">
+              <div class="card article-card" data-type="article" data-article='${articleData}' data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
                 <div class="card-body">
                   <span class="category-tag">${escapeHtml(item.category || 'Article')}</span>
                   <div class="card-title">${escapeHtml(item.title)}</div>
@@ -1073,50 +1075,88 @@ function enableScrollableCategories() {
         grid.innerHTML = html;
       }
 
-      // Event delegation
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('.preview-btn')) {
-          e.preventDefault();
-          const card = e.target.closest('.card');
-          if (card && card.dataset.book) {
-            openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+      // --- Unified hash-based routing ---
+      function handleHashChange() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#book-')) {
+          const slug = hash.substring('#book-'.length);
+          const book = books.find(b => slugify(b.title) === slug);
+          if (book) {
+            // Ensure article reader is hidden
+            if (articleReader.style.display === 'block') {
+              _closeArticle();
+            }
+            _openBookModal(book);
+          } else {
+            // Book not found, clean up and show library
+            _closeAll();
           }
-          return;
-        }
-        if (e.target.closest('.read-btn')) {
-          const card = e.target.closest('.card');
-          if (card && card.dataset.article) {
-            openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+        } else if (hash.startsWith('#article-')) {
+          const slug = hash.substring('#article-'.length);
+          const article = articles.find(a => slugify(a.title) === slug);
+          if (article) {
+            if (modal.classList.contains('open')) {
+              _closeModal();
+            }
+            _openArticle(article);
+          } else {
+            _closeAll();
           }
-          return;
+        } else {
+          // No valid hash – close everything and show library
+          _closeAll();
         }
-        const card = e.target.closest('.card');
-        if (card && !e.target.closest('a')) {
-          if (card.dataset.book) {
-            openBookModal(JSON.parse(card.dataset.book.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          } else if (card.dataset.article) {
-            openArticle(JSON.parse(card.dataset.article.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
-        }
-      });
-
-      function parseShortcodes(text) {
-        let html = text
-          .replace(/\[h1\](.*?)\[\/h1\]/gis, '<h1>$1</h1>')
-          .replace(/\[h2\](.*?)\[\/h2\]/gis, '<h2>$1</h2>')
-          .replace(/\[h3\](.*?)\[\/h3\]/gis, '<h3>$1</h3>')
-          .replace(/\[b\](.*?)\[\/b\]/gis, '<strong>$1</strong>')
-          .replace(/\[i\](.*?)\[\/i\]/gis, '<em>$1</em>')
-          .replace(/\[u\](.*?)\[\/u\]/gis, '<u>$1</u>')
-          .replace(/\[color=(.*?)\](.*?)\[\/color\]/gis, '<span style="color:$1">$2</span>')
-          .replace(/\[center\](.*?)\[\/center\]/gis, '<div style="text-align:center">$1</div>')
-          .replace(/\[quote\](.*?)\[\/quote\]/gis, '<blockquote>$1</blockquote>')
-          .replace(/\[img=(.*?)\]/gis, '<img src="$1" alt="Image">');
-        html = html.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-        return html;
       }
 
-      async function openArticle(article) {
+      function _closeAll() {
+        if (modal.classList.contains('open')) _closeModal();
+        if (articleReader.style.display === 'block') _closeArticle();
+        // Ensure library is visible (it already should be)
+      }
+
+      // Internal open/close functions (do NOT modify hash)
+      function _openBookModal(book) {
+        const modalTitle = document.getElementById('modal-title');
+        const modalAuthor = document.getElementById('modal-author');
+        const modalFrame = document.getElementById('modal-frame');
+        const modalDownload = document.getElementById('modal-download');
+        const modalComments = document.getElementById('modal-comments-container');
+
+        modalTitle.textContent = book.title;
+        modalAuthor.textContent = 'by ' + book.author;
+        
+        const pdfUrl = new URL(book.file, window.location.href).href;
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+          modalFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+        } else {
+          modalFrame.src = pdfUrl + '#view=FitH';
+        }
+        
+        modalFrame.onerror = () => {
+          modalFrame.srcdoc = `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#0d0d0d;color:#e8e0d0;">Preview unavailable.</div>`;
+        };
+        
+        modalDownload.href = book.file;
+        modalDownload.download = book.title.replace(/\s+/g, '_') + '.pdf';
+        
+        loadModalComments(book.title);
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function _closeModal() {
+        const modal = document.getElementById('modal');
+        const modalFrame = document.getElementById('modal-frame');
+        const modalComments = document.getElementById('modal-comments-container');
+        modal.classList.remove('open');
+        modalFrame.src = '';
+        modalComments.innerHTML = '';
+        document.body.style.overflow = '';
+      }
+
+      async function _openArticle(article) {
         document.getElementById('read-title').textContent = article.title;
         document.getElementById('read-author').textContent = `By ${article.author}`;
         document.getElementById('read-category').textContent = article.category || 'Article';
@@ -1138,12 +1178,98 @@ function enableScrollableCategories() {
         }
       }
 
-      function closeArticle() {
+      function _closeArticle() {
         browseSection.style.display = 'block';
         articleReader.style.display = 'none';
         document.getElementById('article-comments').innerHTML = '';
       }
+
+      // Public functions called from UI – they update the hash, which triggers handleHashChange
+      function openBookModalViaHash(book) {
+        window.location.hash = 'book-' + slugify(book.title);
+      }
+
+      function openArticleViaHash(article) {
+        window.location.hash = 'article-' + slugify(article.title);
+      }
+
+      function closeModal() {
+        // Remove hash and let handleHashChange clean up
+        history.pushState(null, '', window.location.pathname + window.location.search);
+        handleHashChange();
+      }
+
+      function closeArticle() {
+        history.pushState(null, '', window.location.pathname + window.location.search);
+        handleHashChange();
+      }
       window.closeArticle = closeArticle;
+
+      // Event delegation – use hash setters
+      document.addEventListener('click', (e) => {
+        const previewBtn = e.target.closest('.preview-btn');
+        const readBtn = e.target.closest('.read-btn');
+        const card = e.target.closest('.card');
+
+        if (!card) return;
+
+        // Ignore clicks on the Download link
+        if (e.target.closest('a.btn-primary')) return;
+
+        const type = card.dataset.type;
+        const slug = card.dataset.slug;
+        if (!type || !slug) return;
+
+        // Handle Preview button (books only)
+        if (previewBtn && type === 'book') {
+          e.preventDefault();
+          const bookData = card.dataset.book;
+          if (bookData) {
+            openBookModalViaHash(JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+          }
+          return;
+        }
+
+        // Handle Read button (articles only)
+        if (readBtn && type === 'article') {
+          const articleData = card.dataset.article;
+          if (articleData) {
+            openArticleViaHash(JSON.parse(articleData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+          }
+          return;
+        }
+
+        // Click on the card body (not a button/link)
+        if (!e.target.closest('a') && !e.target.closest('button')) {
+          if (type === 'book') {
+            const bookData = card.dataset.book;
+            if (bookData) {
+              openBookModalViaHash(JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            }
+          } else if (type === 'article') {
+            const articleData = card.dataset.article;
+            if (articleData) {
+              openArticleViaHash(JSON.parse(articleData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
+            }
+          }
+        }
+      });
+
+      function parseShortcodes(text) {
+        let html = text
+          .replace(/\[h1\](.*?)\[\/h1\]/gis, '<h1>$1</h1>')
+          .replace(/\[h2\](.*?)\[\/h2\]/gis, '<h2>$1</h2>')
+          .replace(/\[h3\](.*?)\[\/h3\]/gis, '<h3>$1</h3>')
+          .replace(/\[b\](.*?)\[\/b\]/gis, '<strong>$1</strong>')
+          .replace(/\[i\](.*?)\[\/i\]/gis, '<em>$1</em>')
+          .replace(/\[u\](.*?)\[\/u\]/gis, '<u>$1</u>')
+          .replace(/\[color=(.*?)\](.*?)\[\/color\]/gis, '<span style="color:$1">$2</span>')
+          .replace(/\[center\](.*?)\[\/center\]/gis, '<div style="text-align:center">$1</div>')
+          .replace(/\[quote\](.*?)\[\/quote\]/gis, '<blockquote>$1</blockquote>')
+          .replace(/\[img=(.*?)\]/gis, '<img src="$1" alt="Image">');
+        html = html.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+        return html;
+      }
 
       // --- Giscus Loader ---
       function loadGiscusComments(containerId, term) {
@@ -1203,54 +1329,15 @@ function enableScrollableCategories() {
         loadGiscusComments('article-comments', title);
       }
 
-      // --- Book Modal ---
-      const modal = document.getElementById('modal');
-      const modalTitle = document.getElementById('modal-title');
-      const modalAuthor = document.getElementById('modal-author');
-      const modalFrame = document.getElementById('modal-frame');
-      const modalDownload = document.getElementById('modal-download');
-      const modalComments = document.getElementById('modal-comments-container');
-
-      function openBookModal(book) {
-        modalTitle.textContent = book.title;
-        modalAuthor.textContent = 'by ' + book.author;
-        
-        const pdfUrl = new URL(book.file, window.location.href).href;
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        
-        if (isMobile) {
-          modalFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-        } else {
-          modalFrame.src = pdfUrl + '#view=FitH';
-        }
-        
-        modalFrame.onerror = () => {
-          modalFrame.srcdoc = `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#0d0d0d;color:#e8e0d0;">Preview unavailable.</div>`;
-        };
-        
-        modalDownload.href = book.file;
-        modalDownload.download = book.title.replace(/\s+/g, '_') + '.pdf';
-        
-        loadModalComments(book.title);
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-
       function loadModalComments(title) {
         loadGiscusComments('modal-comments-container', title);
       }
-      
-      function closeModal() {
-        modal.classList.remove('open');
-        modalFrame.src = '';
-        modalComments.innerHTML = '';
-        document.body.style.overflow = '';
-      }
 
+      // Modal close buttons – call public closeModal which updates hash
       document.getElementById('modal-close').addEventListener('click', closeModal);
       document.getElementById('modal-close-footer').addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+      document.getElementById('modal').addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
       // Search
       let searchTimeout;
@@ -1262,11 +1349,29 @@ function enableScrollableCategories() {
         }, 200);
       });
 
+      // Clear filters button
+      document.getElementById('clear-filters-btn').addEventListener('click', () => {
+        activeCategory = 'All';
+        activeLanguage = 'All';
+        document.getElementById('search').value = '';
+        searchTerm = '';
+        document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('#filters .filter-btn').classList.add('active');
+        document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('#language-filters .filter-btn[data-lang="All"]').classList.add('active');
+        renderGrid();
+      });
+
+      document.getElementById('sort-dropdown').addEventListener('change', renderGrid);
+
+      // Listen for manual hash changes (back/forward)
+      window.addEventListener('hashchange', handleHashChange);
+
       // Start
       loadData();
     })();
   </script>
- <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 <script>
   kofiWidgetOverlay.draw('mourtada', {
     'type': 'floating-chat',
@@ -1308,29 +1413,6 @@ function enableScrollableCategories() {
   closeWaveBtn.addEventListener('click', () => {
     waveModal.close();
   });
-  // --- CLEAR FILTERS BUTTON LOGIC ---
-document.getElementById('clear-filters-btn').addEventListener('click', () => {
-  // 1. Reset our memory variables to 'All'
-  activeCategory = 'All';
-  activeLanguage = 'All';
-  
-  // 2. Clear the search bar text
-  document.getElementById('search-bar').value = '';
-  
-  // 3. Reset the Topic buttons (remove yellow from all, add to 'All')
-  document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('#filters .filter-btn[data-filter="All"]').classList.add('active');
-  
-  // 4. Reset the Language buttons (remove yellow from all, add to 'All')
-  document.querySelectorAll('#language-filters .filter-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('#language-filters .filter-btn[data-lang="All"]').classList.add('active');
-  
-  // 5. Redraw the grid with everything reset!
-  renderGrid();
-});
-// -----------------------------------
-  document.getElementById('sort-dropdown').addEventListener('change', renderGrid);
-  
 </script>
 </body>
 </html>
