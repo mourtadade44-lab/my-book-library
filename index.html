@@ -234,7 +234,6 @@
     .filter-btn.active { background: var(--accent, #c9a84c); border-color: var(--accent, #c9a84c); color: #0d0d0d; font-weight: 500; }
 
     /* Grid & Cards – shorter cards */
-    /* Grid & Cards – shorter cards */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -651,7 +650,6 @@
   </header>
 
   <main>
-    <!-- Browse Section (Grid) -->
     <div id="browse-section">
        <div class="hero" id="hero-section" style="display: none;">
         <h1 id="hero-heading"></h1>
@@ -692,7 +690,6 @@
       </div>
     </div>
 
-    <!-- Article Reader View -->
     <div id="article-reader">
       <button class="back-btn" onclick="closeArticle()">← Back to Articles</button>
       <div class="article-header">
@@ -712,7 +709,6 @@
       <div id="contact-info" class="contact-info" style="display: none;"></div>
   </footer>
 
-  <!-- PDF Preview Modal -->
   <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-header">
@@ -776,9 +772,10 @@
 
       // Helper: slugify a title for use in URL hash
       function slugify(text) {
+        if (!text) return '';
         return text.toString().toLowerCase()
           .replace(/\s+/g, '-')
-          .replace(/[^\w\-]+/g, '')
+          .replace(/[#?&/\\%'"`,.]/g, '')
           .replace(/\-\-+/g, '-')
           .replace(/^-+/, '')
           .replace(/-+$/, '');
@@ -1034,10 +1031,9 @@
                 <div class="placeholder-title">${escapeHtml(item.title)}</div>
               </div>
             `;
-            const bookData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
             
             html += `
-              <div class="card" data-type="book" data-book='${bookData}' data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
+              <div class="card" data-type="book" data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
                 <div class="card-thumb">
                   ${thumbHtml}
                   ${placeholderHtml}
@@ -1056,9 +1052,8 @@
               </div>
             `;
           } else {
-            const articleData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
             html += `
-              <div class="card article-card" data-type="article" data-article='${articleData}' data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
+              <div class="card article-card" data-type="article" data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
                 <div class="card-body">
                   <span class="category-tag">${escapeHtml(item.category || 'Article')}</span>
                   <div class="card-title">${escapeHtml(item.title)}</div>
@@ -1223,34 +1218,26 @@
         // Handle Preview button (books only)
         if (previewBtn && type === 'book') {
           e.preventDefault();
-          const bookData = card.dataset.book;
-          if (bookData) {
-            openBookModalViaHash(JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
+          const book = books.find(b => slugify(b.title) === slug);
+          if (book) openBookModalViaHash(book);
           return;
         }
 
         // Handle Read button (articles only)
         if (readBtn && type === 'article') {
-          const articleData = card.dataset.article;
-          if (articleData) {
-            openArticleViaHash(JSON.parse(articleData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-          }
+          const article = articles.find(a => slugify(a.title) === slug);
+          if (article) openArticleViaHash(article);
           return;
         }
 
         // Click on the card body (not a button/link)
         if (!e.target.closest('a') && !e.target.closest('button')) {
           if (type === 'book') {
-            const bookData = card.dataset.book;
-            if (bookData) {
-              openBookModalViaHash(JSON.parse(bookData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-            }
+            const book = books.find(b => slugify(b.title) === slug);
+            if (book) openBookModalViaHash(book);
           } else if (type === 'article') {
-            const articleData = card.dataset.article;
-            if (articleData) {
-              openArticleViaHash(JSON.parse(articleData.replace(/&apos;/g, "'").replace(/&quot;/g, '"')));
-            }
+            const article = articles.find(a => slugify(a.title) === slug);
+            if (article) openArticleViaHash(article);
           }
         }
       });
