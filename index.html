@@ -1070,9 +1070,11 @@
         grid.innerHTML = html;
       }
 
-      // --- Unified hash-based routing ---
+    // --- Unified hash-based routing ---
       function handleHashChange() {
-        const hash = window.location.hash;
+        // We MUST decode the hash so Arabic/French characters aren't percent-encoded (e.g. %20 or %D9%85)
+        const hash = decodeURIComponent(window.location.hash);
+        
         if (hash.startsWith('#book-')) {
           const slug = hash.substring('#book-'.length);
           const book = books.find(b => slugify(b.title) === slug);
@@ -1086,6 +1088,22 @@
             // Book not found, clean up and show library
             _closeAll();
           }
+        } else if (hash.startsWith('#article-')) {
+          const slug = hash.substring('#article-'.length);
+          const article = articles.find(a => slugify(a.title) === slug);
+          if (article) {
+            if (modal.classList.contains('open')) {
+              _closeModal();
+            }
+            _openArticle(article);
+          } else {
+            _closeAll();
+          }
+        } else {
+          // No valid hash – close everything and show library
+          _closeAll();
+        }
+      }
         } else if (hash.startsWith('#article-')) {
           const slug = hash.substring('#article-'.length);
           const article = articles.find(a => slugify(a.title) === slug);
