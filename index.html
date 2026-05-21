@@ -691,7 +691,7 @@
     </div>
 
     <div id="article-reader">
-      <button class="back-btn" onclick="closeArticle()">← Back to Articles</button>
+      <button class="back-btn" id="back-to-articles-btn">← Back to Articles</button>
       <div class="article-header">
         <span class="category-tag" id="read-category">Category</span>
         <h1 id="read-title">Article Title</h1>
@@ -758,6 +758,7 @@
       const viewToggleBtn = document.getElementById('view-toggle-btn');
       const toggleIcon = document.getElementById('toggle-icon');
       const toggleText = document.getElementById('toggle-text');
+      const modal = document.getElementById('modal');
 
       // Helper: escape HTML
       function escapeHtml(str) {
@@ -770,7 +771,7 @@
           .replace(/'/g, '&#39;');
       }
 
-      // Helper: slugify a title for use in URL hash
+      // Helper: slugify a title for use in URL hash (only for articles)
       function slugify(text) {
         if (!text) return '';
         return text.toString().toLowerCase()
@@ -807,7 +808,7 @@
           setTimeout(enableScrollableCategories, 100);
           renderGrid();
 
-          // Handle direct links (hash in URL)
+          // Handle direct links (hash in URL) – only for articles now
           handleHashChange();
         } catch (error) {
           console.error('Failed to load YAML:', error);
@@ -981,7 +982,15 @@
           sectionTitle.textContent = 'Essays & Articles';
           filtersContainer.style.display = 'none';
         }
-        closeArticle();
+        // If we are switching to books and there is an article hash, clear it
+        if (currentView === 'books' && window.location.hash.startsWith('#article-')) {
+          history.pushState(null, '', window.location.pathname + window.location.search);
+          handleHashChange(); // ensure article reader is closed
+        } else if (currentView === 'articles' && articleReader.style.display === 'block') {
+          // Already showing article, keep hash as is
+        } else {
+          closeArticle();
+        }
         renderGrid();
       }
       viewToggleBtn.addEventListener('click', toggleView);
@@ -1020,7 +1029,7 @@
 
         let html = '';
         filtered.forEach((item, i) => {
-          const slug = slugify(item.title);
+          const slug = slugify(item.title); // for data-slug attribute
           if (currentView === 'books') {
             const thumbHtml = item.thumbnail && item.thumbnail.trim() !== ''
               ? `<img src="${item.thumbnail}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
@@ -1052,6 +1061,7 @@
               </div>
             `;
           } else {
+            // Note: The hash/URL linking only happens for these Article cards
             html += `
               <div class="card article-card" data-type="article" data-slug="${slug}" style="animation-delay: ${i * 0.03}s">
                 <div class="card-body">
@@ -1070,52 +1080,12 @@
         grid.innerHTML = html;
       }
 
-      // --- Unified hash-based routing ---
-      function handleHashChange() {
-        const hash = window.location.hash;
-        if (hash.startsWith('#book-')) {
-          const slug = hash.substring('#book-'.length);
-          const book = books.find(b => slugify(b.title) === slug);
-          if (book) {
-            // Ensure article reader is hidden
-            if (articleReader.style.display === 'block') {
-              _closeArticle();
-            }
-            _openBookModal(book);
-          } else {
-            // Book not found, clean up and show library
-            _closeAll();
-          }
-        } else if (hash.startsWith('#article-')) {
-          const slug = hash.substring('#article-'.length);
-          const article = articles.find(a => slugify(a.title) === slug);
-          if (article) {
-            if (modal.classList.contains('open')) {
-              _closeModal();
-            }
-            _openArticle(article);
-          } else {
-            _closeAll();
-          }
-        } else {
-          // No valid hash – close everything and show library
-          _closeAll();
-        }
-      }
-
-      function _closeAll() {
-        if (modal.classList.contains('open')) _closeModal();
-        if (articleReader.style.display === 'block') _closeArticle();
-        // Ensure library is visible (it already should be)
-      }
-
-      // Internal open/close functions (do NOT modify hash)
-      function _openBookModal(book) {
+      // --- Direct modal opener for books (no hash/sharing) ---
+      function openBookModalDirect(book) {
         const modalTitle = document.getElementById('modal-title');
         const modalAuthor = document.getElementById('modal-author');
         const modalFrame = document.getElementById('modal-frame');
         const modalDownload = document.getElementById('modal-download');
-        const modalComments = document.getElementById('modal-comments-container');
 
         modalTitle.textContent = book.title;
         modalAuthor.textContent = 'by ' + book.author;
@@ -1141,17 +1111,43 @@
         document.body.style.overflow = 'hidden';
       }
 
-      function _closeModal() {
-        const modal = document.getElementById('modal');
+      function closeModal() {
         const modalFrame = document.getElementById('modal-frame');
         const modalComments = document.getElementById('modal-comments-container');
         modal.classList.remove('open');
         modalFrame.src = '';
         modalComments.innerHTML = '';
         document.body.style.overflow = '';
+        // Do NOT touch the hash or article reader
       }
 
-      async function _openArticle(article) {
+      // --- Article hash-based routing (only articles) ---
+      function openArticleViaHash(article) {
+        // This makes the URL shareable only for articles
+        window.location.hash = 'article-' + slugify(article.title);
+      }
+
+      async function openArticleFromHash(slug) {
+        const article = articles.find(a => slugify(a.title) === slug);
+        if (!article) {
+          // Invalid hash, clean it up
+          if (window.location.hash.startsWith('#article-')) {
+            history.pushState(null, '', window.location.pathname + window.location.search);
+          }
+          return;
+        }
+        
+        // If current view is 'books', switch to articles view
+        if (currentView !== 'articles') {
+          // Temporarily change view without triggering toggleView's extra logic
+          currentView = 'articles';
+          toggleIcon.textContent = '📰';
+          toggleText.textContent = 'Switch to Books';
+          sectionTitle.textContent = 'Essays & Articles';
+          filtersContainer.style.display = 'none';
+          renderGrid();
+        }
+        
         document.getElementById('read-title').textContent = article.title;
         document.getElementById('read-author').textContent = `By ${article.author}`;
         document.getElementById('read-category').textContent = article.category || 'Article';
@@ -1173,74 +1169,18 @@
         }
       }
 
-      function _closeArticle() {
+      function closeArticle() {
+        // Only close if article reader is visible
+        if (articleReader.style.display !== 'block') return;
         browseSection.style.display = 'block';
         articleReader.style.display = 'none';
         document.getElementById('article-comments').innerHTML = '';
-      }
-
-      // Public functions called from UI – they update the hash, which triggers handleHashChange
-      function openBookModalViaHash(book) {
-        window.location.hash = 'book-' + slugify(book.title);
-      }
-
-      function openArticleViaHash(article) {
-        window.location.hash = 'article-' + slugify(article.title);
-      }
-
-      function closeModal() {
-        // Remove hash and let handleHashChange clean up
-        history.pushState(null, '', window.location.pathname + window.location.search);
-        handleHashChange();
-      }
-
-      function closeArticle() {
-        history.pushState(null, '', window.location.pathname + window.location.search);
-        handleHashChange();
+        // Also remove any article hash from URL if present
+        if (window.location.hash.startsWith('#article-')) {
+          history.pushState(null, '', window.location.pathname + window.location.search);
+        }
       }
       window.closeArticle = closeArticle;
-
-      // Event delegation – use hash setters
-      document.addEventListener('click', (e) => {
-        const previewBtn = e.target.closest('.preview-btn');
-        const readBtn = e.target.closest('.read-btn');
-        const card = e.target.closest('.card');
-
-        if (!card) return;
-
-        // Ignore clicks on the Download link
-        if (e.target.closest('a.btn-primary')) return;
-
-        const type = card.dataset.type;
-        const slug = card.dataset.slug;
-        if (!type || !slug) return;
-
-        // Handle Preview button (books only)
-        if (previewBtn && type === 'book') {
-          e.preventDefault();
-          const book = books.find(b => slugify(b.title) === slug);
-          if (book) openBookModalViaHash(book);
-          return;
-        }
-
-        // Handle Read button (articles only)
-        if (readBtn && type === 'article') {
-          const article = articles.find(a => slugify(a.title) === slug);
-          if (article) openArticleViaHash(article);
-          return;
-        }
-
-        // Click on the card body (not a button/link)
-        if (!e.target.closest('a') && !e.target.closest('button')) {
-          if (type === 'book') {
-            const book = books.find(b => slugify(b.title) === slug);
-            if (book) openBookModalViaHash(book);
-          } else if (type === 'article') {
-            const article = articles.find(a => slugify(a.title) === slug);
-            if (article) openArticleViaHash(article);
-          }
-        }
-      });
 
       function parseShortcodes(text) {
         let html = text
@@ -1257,6 +1197,62 @@
         html = html.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
         return html;
       }
+
+      // --- Unified hash change handler (only for articles) ---
+      function handleHashChange() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#article-')) {
+          const slug = hash.substring('#article-'.length);
+          openArticleFromHash(slug);
+        } else {
+          // No article hash: close article reader if open, and ensure library is visible
+          if (articleReader.style.display === 'block') {
+            closeArticle();
+          }
+        }
+      }
+
+      // --- Event delegation (cards) ---
+      document.addEventListener('click', (e) => {
+        const previewBtn = e.target.closest('.preview-btn');
+        const readBtn = e.target.closest('.read-btn');
+        const card = e.target.closest('.card');
+
+        if (!card) return;
+
+        // Ignore clicks on the Download link
+        if (e.target.closest('a.btn-primary')) return;
+
+        const type = card.dataset.type;
+        const slug = card.dataset.slug;
+        if (!type || !slug) return;
+
+        // Handle Preview button (books only) – direct open, no hash
+        if (previewBtn && type === 'book') {
+          e.preventDefault();
+          const book = books.find(b => slugify(b.title) === slug);
+          if (book) openBookModalDirect(book);
+          return;
+        }
+
+        // Handle Read button (articles only) – use hash routing
+        if (readBtn && type === 'article') {
+          const article = articles.find(a => slugify(a.title) === slug);
+          if (article) openArticleViaHash(article);
+          return;
+        }
+
+        // Click on the card body (not a button/link)
+        if (!e.target.closest('a') && !e.target.closest('button')) {
+          if (type === 'book') {
+            const book = books.find(b => slugify(b.title) === slug);
+            if (book) openBookModalDirect(book);
+          } else if (type === 'article') {
+            const article = articles.find(a => slugify(a.title) === slug);
+            if (article) openArticleViaHash(article);
+          }
+        }
+      });
 
       // --- Giscus Loader ---
       function loadGiscusComments(containerId, term) {
@@ -1320,11 +1316,14 @@
         loadGiscusComments('modal-comments-container', title);
       }
 
-      // Modal close buttons – call public closeModal which updates hash
+      // Modal close buttons – call closeModal (no hash changes)
       document.getElementById('modal-close').addEventListener('click', closeModal);
       document.getElementById('modal-close-footer').addEventListener('click', closeModal);
-      document.getElementById('modal').addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+      // Back to articles button uses closeArticle (which clears hash)
+      document.getElementById('back-to-articles-btn').addEventListener('click', closeArticle);
 
       // Search
       let searchTimeout;
@@ -1351,7 +1350,7 @@
 
       document.getElementById('sort-dropdown').addEventListener('change', renderGrid);
 
-      // Listen for manual hash changes (back/forward)
+      // Listen for manual hash changes (back/forward) – only articles
       window.addEventListener('hashchange', handleHashChange);
 
       // Start
