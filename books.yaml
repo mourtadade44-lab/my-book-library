@@ -8,6 +8,14 @@ books:
     thumbnail: "thumbnails/ويسألونك.png"
     file: "books/ويسألونك عن الشيخ امباكي بوسو.pdf"
 
+  - title: "Professeur Mbacké Bousso  La Science au service de la dévotion"
+    author: "S Fallou Buso Mamoune"
+    description: "Professoeur serigne mbacke bousso "
+    category: "Biography"
+    language: "French"
+    thumbnail: "thumbnails/fallou.png"
+    file: "books/Professeur Mbacké Bousso  La Science au service de la dévotion (Fallou Buso Mamoun).pdf"
+
   - title: "مجموعة من كتابات العلامة الحاج امباكي بوسو"
     author: "Cheikh Mbacke Bousso"
     description: "مجموعة كتابات متنوعة من إعداد سيدي بوسو مولاي"
