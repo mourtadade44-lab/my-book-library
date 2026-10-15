@@ -482,10 +482,3 @@ books:
     description: La philosophie antique
     file: books/La philosophie antique - Jean-Paul Dumond.pdf
     thumbnail: thumbnails/antique.png
-  - title: السلم-المجتمعي-في-السنغال-_-قراءة-في-دور-الطرق-الصوفية
-    author: ساعد بلواضح
-    category: Humanities & Thought
-    language: Arabic
-    description: بحث حول الطرق الصوفية في السنغال ودورهم في نشر السلم والحفاظ عليه
-    file: /uploads/السلم-المجتمعي-في-السنغال-_-قراءة-في-دور-الطرق-الصوفية.pdf
-    thumbnail: ''
