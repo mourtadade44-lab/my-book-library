@@ -1,16 +1,17 @@
 backend:
   name: github
-  repo: mourtadade44-lab/my-book-library  # Replace with your exact repository name if different
-  branch: main                          # Change to 'master' if your repo uses master
+  repo: mourtadade44-lab/my-book-library
+  branch: main
 
-media_folder: "uploads"
-public_folder: "uploads"
+# Default folder for uploaded media
+media_folder: "books"
+public_folder: "books"
 
 collections:
   - name: "library_data"
     label: "Library Content"
     files:
-      - label: "Books List"
+      - label: "Books Collection"
         name: "books"
         file: "books.yaml"
         fields:
@@ -23,10 +24,10 @@ collections:
               - { label: "Category", name: "category", widget: "string" }
               - { label: "Language", name: "language", widget: "select", options: ["Arabic", "French", "English"], required: false }
               - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Book PDF File", name: "file", widget: "file" }
-              - { label: "Thumbnail / Cover Image", name: "thumbnail", widget: "image", required: false }
+              - { label: "Book PDF File", name: "file", widget: "file", media_folder: "books", public_folder: "books" }
+              - { label: "Thumbnail / Cover Image", name: "thumbnail", widget: "image", media_folder: "thumbnails", public_folder: "thumbnails", required: false }
 
-      - label: "Articles List"
+      - label: "Articles Collection"
         name: "articles"
         file: "articles.yaml"
         fields:
@@ -38,4 +39,4 @@ collections:
               - { label: "Author", name: "author", widget: "string" }
               - { label: "Category", name: "category", widget: "string", required: false }
               - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Article File (.txt)", name: "file", widget: "file" }
+              - { label: "Article File (.txt)", name: "file", widget: "file", media_folder: "essay", public_folder: "essay" }
