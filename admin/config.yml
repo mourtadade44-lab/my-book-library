@@ -1,0 +1,41 @@
+backend:
+  name: github
+  repo: mourtadade44-lab/my-book-library  # Replace with your exact repository name if different
+  branch: main                          # Change to 'master' if your repo uses master
+
+media_folder: "uploads"
+public_folder: "uploads"
+
+collections:
+  - name: "library_data"
+    label: "Library Content"
+    files:
+      - label: "Books List"
+        name: "books"
+        file: "books.yaml"
+        fields:
+          - label: "Books"
+            name: "books"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Author", name: "author", widget: "string" }
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Language", name: "language", widget: "select", options: ["Arabic", "French", "English"], required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Book PDF File", name: "file", widget: "file" }
+              - { label: "Thumbnail / Cover Image", name: "thumbnail", widget: "image", required: false }
+
+      - label: "Articles List"
+        name: "articles"
+        file: "articles.yaml"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Author", name: "author", widget: "string" }
+              - { label: "Category", name: "category", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Article File (.txt)", name: "file", widget: "file" }
