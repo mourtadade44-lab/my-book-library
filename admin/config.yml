@@ -3,6 +3,10 @@ backend:
   repo: mourtadade44-lab/my-book-library
   branch: main
 
+# Dashboard Branding
+logo_url: "https://mourtadade44-lab.github.io/my-book-library/social-preview.png"
+site_url: "https://mourtadade44-lab.github.io/my-book-library/"
+
 # Default folder for uploaded media
 media_folder: "books"
 public_folder: "books"
@@ -18,14 +22,17 @@ collections:
           - label: "Books"
             name: "books"
             widget: "list"
+            summary: '📖 {{fields.title}} (by {{fields.author}})'
+            collapsed: true
+            minimize_collapsed: true
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Author", name: "author", widget: "string" }
-              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Title", name: "title", widget: "string", hint: "Enter the full title of the book." }
+              - { label: "Author", name: "author", widget: "string", hint: "The primary author or translator." }
+              - { label: "Category", name: "category", widget: "string", hint: "E.g., Biography, Religion & Spirituality, Science & Reference." }
               - { label: "Language", name: "language", widget: "select", options: ["Arabic", "French", "English"], required: false }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Book PDF File", name: "file", widget: "file", media_folder: "books", public_folder: "books" }
-              - { label: "Thumbnail / Cover Image", name: "thumbnail", widget: "image", media_folder: "thumbnails", public_folder: "thumbnails", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false, hint: "A short paragraph explaining the book." }
+              - { label: "Book PDF File", name: "file", widget: "file", media_folder: "books", public_folder: "books", hint: "Upload the PDF (Keep under 20MB for best performance)." }
+              - { label: "Thumbnail / Cover Image", name: "thumbnail", widget: "image", media_folder: "thumbnails", public_folder: "thumbnails", required: false, hint: "Upload the cover image. Vertical images work best." }
 
       - label: "Articles Collection"
         name: "articles"
@@ -34,6 +41,9 @@ collections:
           - label: "Articles"
             name: "articles"
             widget: "list"
+            summary: '📝 {{fields.title}}'
+            collapsed: true
+            minimize_collapsed: true
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Author", name: "author", widget: "string" }
