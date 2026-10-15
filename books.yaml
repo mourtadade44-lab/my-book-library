@@ -1,553 +1,491 @@
-
 books:
-  - title: "ويسألونك عن الشيخ امباكي بوسو"
-    author: "S Mame Mor Mbacke Hamdy"
-    description: "ترجمة العلامة الحاج امباكي بوسو"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/ويسألونك.png"
-    file: "books/ويسألونك عن الشيخ امباكي بوسو.pdf"
-
-  - title: "Professeur Mbacké Bousso  La Science au service de la dévotion"
-    author: "S Fallou Buso Mamoune"
-    description: "Professoeur serigne mbacke bousso "
-    category: "Biography"
-    language: "French"
-    thumbnail: "thumbnails/fallou.png"
-    file: "books/Professeur Mbacké Bousso  La Science au service de la dévotion (Fallou Buso Mamoun).pdf"
-
-  - title: "مجموعة من كتابات العلامة الحاج امباكي بوسو"
-    author: "Cheikh Mbacke Bousso"
-    description: "مجموعة كتابات متنوعة من إعداد سيدي بوسو مولاي"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/WhatsApp Image 2025-05-24 at 16.14.34_60d71036.jpg"
-    file: "books/مجموعة من كتابات العلامة الحاج امباكي بوسو.pdf"
-
-  - title: "من رسائل الشيخ امباكي بوسو"
-    author: "Cheikh Mbacke Bousso"
-    description: "كتاب في الرسائل"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/WhatsApp Image 2025-05-24 at 16.14.34_60d71036.jpg"
-    file: "books/من رسائل الشيخ محمد امباك بوص.pdf"
-
-  - title: "الشيخ محمد البسوبي الكدوي: حياته وشعره"
-    author: "Serigne Ibra Bousso & Serigne Modou Bousso"
-    description: "السيرة الذاتية لمحمد بوسو بن الشيخ امباكي بوسو"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/S Modou.png"
-    file: "books/الشيخ محمد البسوبي الكدوي.pdf"
-
-  - title: "مريم جارة الله حياتها وسيرتها"
-    author: "Khadija lo"
-    description: "سيرة سغن مريم جارة الله بوسو"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/mm diarra.jfif"
-    file: "books/جارة الله.pdf"
-
-  - title: "المنبر الكدوي 2017"
-    author: "سلم الوصول"
-    description: "مجلة علمية ثقافية"
-    category: "Magazines"
-    language: "Arabic"
-    thumbnail: "thumbnails/المنبر 2017.png"
-    file: "books/المنبر الكدوي 2017.pdf"
-
-  - title: "المنبر الكدوي 2025"
-    author: "سلم الوصول"
-    description: "مجلة علمية ثقافية"
-    category: "Magazines"
-    language: "Arabic/Fr/En"
-    thumbnail: "thumbnails/المنبر 2025.png"
-    file: "books/المنبر الكدوي 2025.pdf"
-
-  - title: "Le 1er Khalif de S Mbacke Bousso"
-    author: "Serigne Fallou Bousso"
-    description: "S Modou Bousso"
-    category: "Biography"
-    language: "French"
-    thumbnail: "thumbnails/البكر.png"
-    file: "books/Serigne Modou Bousso 1er Khalif de Serigne Mbacke Bousso.pdf"
-
-  - title: "حياة العلامة الشيخ امباكي بوسو"
-    author: "الللجنة الثقافية التابعة لشباب سلم الوصول"
-    description: "الشيخ امباكي بوسو حياته وخلفاؤه"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/s mbacke.jpg"
-    file: "books/حياة العلامة الحاج امباكي بوسو.pdf"
-
-  - title: "سرين مود خر بوسو"
-    author: "اللجنة الثقافية التابعة لدائرة أحفاد الشيخ مود خر"
-    description: "حياة الإمام الورع سرين مود خر بوسو وحكاياته التي رواها مباشرة عن الشيخ الخديم"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/Screenshot 2026-04-17 214751.png"
-    file: "books/سَرينْ مُودُ خَرِ بوسو.pdf"
-
-  - title: "Serigne Ndiagna Bousso"
-    author: "cheikh Bachir Bousso Bakher"
-    description: "La vie de Serigne Ndiagna Bousso"
-    category: "Biography"
-    language: "French"
-    thumbnail: "thumbnails/S Ndiania.png"
-    file: "books/Serigne Ndiagna Bousso  Un Héritage de Piété et de Service.pdf"
-
-  - title: "الملامح التجديدية للتصوف السني عند الشيخ أحمد بمب: منظومة مسالك الجنان نموذجا"
-    author: "Murtadaa buso Mamoune & Moustapha Bousoo"
-    description: "الملامح التجديدية للتصوف السني عند الشيخ أحمد بمب انطلاقا من سيرته ومؤلفاته: منظومة مسالك الجنان نموذجا "
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/tala tapha.png"
-    file: "books/بحث مرتلا ومصطفى.pdf"
-
-  - title: "منهج الشيخ أحمد بمبا في تهذيب الفكر الصوفي وتنقيته"
-    author: "Dr. Ahmed Lo"
-    description: "منهج الشيخ أحمد بمبا في تهذيب الفكر الصوفي وتنقيته"
-    category: "Magazines"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/أحمد بمب.pdf"
-
-  - title: "Sufi City- Urban Design and Archetypes in Touba"
-    author: "Eric Ross"
-    description: "Sufi City- Urban Design and Archetypes in Touba"
-    category: "Humanities & Thought"
-    language: "English"
-    thumbnail: "thumbnails/Sufi city.png"
-    file: "books/Sufi City- Urban Design and Archetypes in Touba (Rochester -- Eric S. Ross -- ( WeLib.org ).pdf"
-
-  - title: "Understanding Islam"
-    author: "Frithjof Schuon"
-    description: "Understanding Islam"
-    category: "Humanities & Thought"
-    language: "English"
-    thumbnail: "thumbnails/islam.png"
-    file: "books/Understanding Islam -- Frithjof Schuon; with a foreword by Annemarie Schimmel -- ( WeLib.org ).pdf"
-
-  - title: "Dërëm ak ngërëm - la philosophie du développement intégral"
-    author: "Djibi Diakhaté & Cheikh Gueye"
-    description: "Dërëm ak ngërëm - la philosophie du développement intégral de serigne Touba"
-    category: "Humanities & Thought"
-    language: "French"
-    thumbnail: "thumbnails/derem.png"
-    file: "books/Dërëm ak ngërëm - la philosophie du développement intégral -- Djiby Diakhaté -- ( WeLib.org ).pdf"
-
-  - title: "Fighting the Greater Jihad- Amadu Bamba and the founding of Muridiyya- "
-    author: "Babou Cheikh Anta"
-    description: "The Jihad of Cheikh Ahmadou Bamba"
-    category: "Humanities & Thought"
-    language: "English"
-    thumbnail: "thumbnails/jihad.png"
-    file: "books/Fighting the Greater Jihad- Amadu Bamba and the Founding of -- Babou, Cheikh Anta, Babou, Cheikh Anta -- ( WeLib.org ).pdf"
-
-  - title: "دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا"
-    author: "عبد الرحمان لوح"
-    description: "دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/المرأة المسلمة.png"
-    file: "books/دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا.pdf"
-
-  - title: "شخصيات من المدرسة الخديمية"
-    author: "اللجنة الثقافية التابعة لمؤسسة الأزهر الاإسلامية"
-    description: "شخصيات من المدرسة الخديمية"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/شخصيات.png"
-    file: "books/شخصيات من المدرسة الخديمية.pdf"
-
-  - title: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
-    author: "ذ. عافية أحمد انيانغ"
-    description: "عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/عبقرية.png"
-    file: "books/عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ.pdf"
-
-  - title: "سرين امباكي بوسو ودوره في نشر العلم والمعرفة"
-    author: "عبد الأحد انيانغ"
-    description: "سرين امباكي بوسو ودوره في نشر العلم والمعرفة"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/دوره.png"
-    file: "books/سرين امباكي بوسو ودوره في نشر العلم والمعرفة.pdf"
-
-  - title: "حياة الشيخ أحمد بمب"
-    author: "الرابطة الخديمية للباحثين والدارسين"
-    description: "ترجمة الشيخ أحمد بمب امباكي خادم الرسول"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/حياة الشيخ.png"
-    file: "books/حياة الشيخ أحمد بمب.pdf"
-
-  - title: "الأذكار والأوراد وتأثيرهما في التربية الروحية: الورد المأخوذ نموذجا"
-    author: "عيسى عافية غي الطوباوي"
-    description: "لأذكار والأوراد وتأثيرهما في التربية الروحية: الورد المأخوذ نموذجا"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/الورد.png"
-    file: "books/الأذكار والأوراد.pdf"
-
-  - title: "نوازل الشيخ محمد البصوبي المشهور بالحاج امباكي بصو"
-    author: "طه عبد الرحمان انيانغ"
-    description: "نوازل الشيخ امباكي بوسو"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/نوازل.png"
-    file: "books/نوازل.pdf"
-
-  - title: "نبذة عن حياة الشيخ مور بوسو"
-    author: "الدكتور سام بوسو عبد الرحمان"
-    description: "حياة سرين مور بوسو"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/مور بوسو.png"
-    file: "books/الشيخ مور بوسو.pdf"
-
-  - title: "مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي"
-    author: "سرين مود بوسو مامون"
-    description: "مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو"
-    category: "Magazines"
-    language: "Arabic"
-    thumbnail: "thumbnails/modou.png"
-    file: "books/6. مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو.pdf"
-
-  - title: "The Muslim 500 2025"
-    author: "RISSC"
-    description: "The world's most influencial muslims 500"
-    category: "Magazines"
-    language: "English"
-    thumbnail: "muslim 2025.png"
-    file: "books/500 most influencial muslims.pdf"
-    
-  - title: "The Muslim 500 2026"
-    author: "RISSC"
-    description: "The world's most influencial muslims 500"
-    category: "Magazines"
-    language: "English"
-    thumbnail: "muslim 2026.png"
-    file: "books/2026b-TheMuslim500-LowRes.pdf"
-
-  - title: "الشيخ محمد المرتضى امباكي رائد الوقف في السنغال"
-    author: "سرين امباكي عبد الرحمان"
-    description: "الشيخ محمد المرتضى امباكي رائد الوقف في السنغال"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/متضى.jfif"
-    file: "books/رائد الوقف في السنغال 2.pdf"
-
-  - title: "ثلاث منظومات في التصوف والسلوك"
-    author: "الشيخ أحمد بمب (دائرة فتح الغفار)"
-    description: "منظومات في التصوف والسلوك - منور الصدور - مغالق النيران - جالبة البرور"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/منظومات.png"
-    file: "books/ثلاث منظومات.pdf"
-
-  - title: "الشيخ صالح امباكي: حياته وأعماله"
-    author: "دائرة روض الرياحين"
-    description: "الشيخ صالح امباكي: حياته وأعماله"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/صالح.png"
-    file: "books/الشيخ صالح امباكي حياته واعماله.pdf"
-
-  - title: "المريدية حقيقتها ومبادئها"
-    author: "دائرة روض الرياحين"
-    description: "المريدية حقيقتها ومبادئها"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/المريدية حقيقتها ومبادئها.pdf"
-
-  - title: "دراسات حول المريدية"
-    author: "روض الرياحين"
-    description: "دراسات حول المريدية"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/دراسات حول المريدية روض الرياحين.pdf"
-
-  - title: "المريدية: الحقيقية والواقع وافاق المستقبل"
-    author: " الشيخ مرتضى فاط فال"
-    description: "مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/المريدية الحقيقية والواقع وافاق المستقبل الشيخ مرتضى فاط فال.pdf"
-
-  - title: "الفوائد والزهد والرقائق والمراثي"
-    author: "محمد بن نصير البغدادي"
-    description: "الفوائد والزهد والرقائق والمراثي"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/الرقائق.png"
-    file: "books/الفوائد والزهد والرقائق والمراثي.pdf"
-
-  - title: "رسائل الجنيد"
-    author: "الامام أبو القاسم الجنيد"
-    description: "رسائل الجنيد"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/جنيد.png"
-    file: "books/رسائل الجنيد.pdf"
-
-  - title: "ميزان العمل"
-    author: "الإمام الغزالي"
-    description: "ميزان العمل"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/ميزان العمل.png"
-    file: "books/ميزان العمل.pdf"
-
-  - title: "سلاح اليقظان لطرد الشيطان"
-    author: "عبد العزيز محمد السلمان"
-    description: "سلاح اليقظان لطرد الشيطان"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/طرد الشيطان.png"
-    file: "books/سلاح اليقظان لطرد الشيطان.pdf"
-
-  - title: "خلق المسلم"
-    author: "محمد الغزالي"
-    description: "خلق المسلم  "
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/خلق المسلم.png"
-    file: "books/خلق المسلم محمد الغزالي.pdf"
-
-  - title: "أهوال القبور وأحوال أهلها إلى النشور"
-    author: "عبد الرحمان بن أحمد بن رجب الحنبلي الدمشقي"
-    description: "أهوال القبور وأحوال أهلها إلى النشور"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/أهوال القبور.png"
-    file: "books/أهوال القبور وأحوال أهلها إلى النشور.pdf"
-
-  - title: "فصوص الحكم"
-    author: "ابن عربي"
-    description: "فصوص الحكم"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/فصوص.png"
-    file: "books/فصوص الحكم.pdf"
-
-  - title: "شجرة الكون"
-    author: "ابن عربي"
-    description: "شجرة الكون"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/.png"
-    file: "books/شجرة الكون.pdf"
-
-  - title: "إحياء القلوب"
-    author: "ولي الدين البكائي"
-    description: "إحياء القلوب"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/إحياء القلوب.png"
-    file: "books/إحياء القلوب.pdf"
-
-  - title: "من إسهام الشيخ الخديم في الفقه المالكي "
-    author: "أبو مدين شعيب تياو الأزهري الطوبوي"
-    description: "من إسهام الشيخ الخديم في الفقه المالكي "
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "book/من إسهام الشيخ الخديم في الفقه المالكي - Copie - Copie.pdf"
-
-  - title: "الإسلام الأسود"
-    author: "محمد شقرون"
-    description: "الإسلام الأسود"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/placeholder.jpg"
-    file: "books/Noor-Book.com  الاسلام الأسود محمد شقرون 2 .pdf"
-
-  - title: "التعايش السلمي عند الشيخ الخديم فكرا وممارسة "
-    author: "د شيخ انجاي"
-    description: "التعايش السلمي عند الشيخ الخديم فكرا وممارسة"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfifi"
-    file: "books/التعايش السلمي عند الشيخ الخديم فكرا وممارسة د شيخ انجاي.pdf"
-
-  - title: "الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ"
-    author: "أبو مدين شعيب تياو الأزهري الطوبوي"
-    description: "الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/touba.jpg"
-    file: "books/الشيخُ شعيبُ امبَاكِي…العارفُ الرّبّانيُّ.pdf"
-
-  - title: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق"
-    author: "أبو مدين شعيب تياو الأزهري الطوبوي"
-    description: "الشيخُ عبد القادر الإمام العالم السني والمريد الصادق"
-    category: "Biography"
-    language: "Arabic"
-    thumbnail: "thumbnails/touba.jpg"
-    file: "books/الشيخُ عبد القادر الإمام العالم السني والمريد الصادق.pdf"
-
-  - title: "تطريز الأشعار عند العبد الخديم"
-    author: "أبو مدين شعيب تياو الأزهري الطوبوي"
-    description: "تطريز الأشعار عند العبد الخديم"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/تطريز الأشعار عند العبد الخديم.pdf"
-
-  - title: "عناية الشيخ الخديم بالمسجد"
-    author: "أبو مدين شعيب تياو الأزهري الطوبوي"
-    description: "عناية الشيخ الخديم بالمسجد"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/bamba.jfif"
-    file: "books/عناية الشيخ بالمسجد - Copie (2).pdf"
-
-  - title: "طوبى محل وسلوك"
-    author: "شيخ أحمد مباكي نيانغ"
-    description: "مدينة طوبى المحروسة"
-    category: "Humanities & Thought"
-    language: "Arabic"
-    thumbnail: "thumbnails/touba.jpg"
-    file: "books/طوبى محل وسلوك.pdf"
-
-  - title: "الوصايا"
-    author: "ابن عربي"
-    description: "وصايا صوفية"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/وصايا.png"
-    file: "books/الوصايا.pdf"
-
-  - title: "المروءة وخوارمها"
-    author: "أبو عبيدة مشهور بن حسن آل سلمان"
-    description: "المروءة وخوارمها"
-    category: "Religion & Spirituality"
-    language: "Arabic"
-    thumbnail: "thumbnails/المروءة.png"
-    file: "books/المروءة وخوارمها.pdf"
-  - title: "Les Fondements économic et culture d'un état fédéral d'afrique noire"
-    author: "Cheikh Anta Diop"
-    description: "Les Fondements économic et culture d'un état fédéral d'afrique noire"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/Anta Diop.png"
-    file: "books/Les_fondements_éco_Cheikh Anta Diop.pdf"
-
-  - title: "Les secrets scientifique du coran"
-    author: "Dr Samir Abdoulhalim"
-    description: "Les secrets scientifique du coran"
-    category: "Science & Reference"
-    language: "French"
-    thumbnail: "thumbnails/coran.png"
-    file: "books/Les secrets scientifique du coran.pdf"
-
-  - title: "Les 40 Ahadith de An-Nawawi"
-    author: "An-Nawawi"
-    description: "Les 40 Ahadith de An-Nawawi"
-    category: "Religion & Spirituality"
-    language: "French"
-    thumbnail: "thumbnails/nawawi.png"
-    file: "books/Les secrets scientifique du coran.pdf"
-
-  - title: "L’histoire de l'esclavage et de la traite négrière"
-    author: "Marc Cheb Sun"
-    description: "L’histoire de l'esclavage et de la traite négrière"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/esclavage.png"
-    file: "books/Marc_Cheb_Sun_&_al_L’histoire_de_l'esclavage_et_de_la_traite_négrière.pdf"
-
-  - title: "Les 100 mots de la justice"
-    author: " Denis Salas"
-    description: "Les 100 mots de la justice"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/justice.png"
-    file: "books/Les 100 mots de la justice - Denis Salas.pdf"
-
-  - title: "Les 100 mots de la psychanalyse"
-    author: "Jacques André"
-    description: "Les 100 mots de la psychanalyse"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/psycoanalysis.png"
-    file: "books/Les 100 mots de la psychanalyse - Jacques André.pdf"
-
-  - title: "Les 100 mots de la sociologie"
-    author: "Serge Paugam"
-    description: "Les 100 mots de la sociologie"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/.png"
-    file: "books/Les 100 mots de la sociologie - Serge Paugam.pdf"
-
-  - title: "Les 100 mots de l'économie "
-    author: "Jean-Paul Betbeze"
-    description: "Les 100 mots de l'économie"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/economie.png"
-    file: "books/Les 100 mots de l'économie - Jean-Paul Betbeze.pdf"
-
-  - title: "Les 100 mots du droit"
-    author: "François Gaudu"
-    description: "Les 100 mots du droit"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/droit.png"
-    file: "books/Les 100 mots du droit - François Gaudu.pdf"
-
-  - title: "Les 100 mots du marxisme "
-    author: "Gérard Dumenil"
-    description: "Les 100 mots du marxisme"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/marxism.png"
-    file: "books/Les 100 mots du marxisme - Gérard Dumenil.pdf"
-
-  - title: " Le prince"
-    author: "Nicolas Machiavel"
-    description: " Le prince"
-    category: "Humanities & Thought"
-    language: "French"
-    thumbnail: "thumbnails/le prince.png"
-    file: "books/Nicolas Machiavel - Le prince.pdf"
-
-  - title: "l'afrique des minerais strategiques"
-    author: "Grip"
-    description: "l'afrique des minerais strategiques"
-    category: "Magazines"
-    language: "French"
-    thumbnail: "thumbnails/minerais.png"
-    file: "books/l'afrique des minerais strategiques.pdf"
-
-  - title: "Travail salarié et Capital"
-    author: "Karl Marx "
-    description: "Travail salarié et Capital"
-    category: "Literature & Media"
-    language: "French"
-    thumbnail: "thumbnails/capital.png"
-    file: "books/Karl Marx - Travail salarié et Capital.pdf"
-
-  - title: "La pensée éthique contemporaine"
-    author: "Jacqueline Russ"
-    description: "La pensée éthique contemporaine"
-    category: "Humanities & Thought"
-    language: "French"
-    thumbnail: "thumbnails/.png"
-    file: "books/La pensée éthique contemporaine - Jacqueline Russ.pdf"
-
-  - title: "La philosophie antique"
-    author: "Jean-Paul Dumond"
-    description: "La philosophie antique"
-    category: "Humanities & Thought"
-    language: "French"
-    thumbnail: "thumbnails/antique.png"
-    file: "books/La philosophie antique - Jean-Paul Dumond.pdf"
-
+  - title: ويسألونك عن الشيخ امباكي بوسو
+    author: S Mame Mor Mbacke Hamdy
+    category: Biography
+    language: Arabic
+    description: ترجمة العلامة الحاج امباكي بوسو
+    file: books/ويسألونك عن الشيخ امباكي بوسو.pdf
+    thumbnail: thumbnails/ويسألونك.png
+  - title: Professeur Mbacké Bousso  La Science au service de la dévotion
+    author: S Fallou Buso Mamoune
+    category: Biography
+    language: French
+    description: Professoeur serigne mbacke bousso
+    file: books/Professeur Mbacké Bousso  La Science au service de la dévotion (Fallou Buso Mamoun).pdf
+    thumbnail: thumbnails/fallou.png
+  - title: مجموعة من كتابات العلامة الحاج امباكي بوسو
+    author: Cheikh Mbacke Bousso
+    category: Religion & Spirituality
+    language: Arabic
+    description: مجموعة كتابات متنوعة من إعداد سيدي بوسو مولاي
+    file: books/مجموعة من كتابات العلامة الحاج امباكي بوسو.pdf
+    thumbnail: thumbnails/WhatsApp Image 2025-05-24 at 16.14.34_60d71036.jpg
+  - title: من رسائل الشيخ امباكي بوسو
+    author: Cheikh Mbacke Bousso
+    category: Religion & Spirituality
+    language: Arabic
+    description: كتاب في الرسائل
+    file: books/من رسائل الشيخ محمد امباك بوص.pdf
+    thumbnail: thumbnails/WhatsApp Image 2025-05-24 at 16.14.34_60d71036.jpg
+  - title: 'الشيخ محمد البسوبي الكدوي: حياته وشعره'
+    author: Serigne Ibra Bousso & Serigne Modou Bousso
+    category: Biography
+    language: Arabic
+    description: السيرة الذاتية لمحمد بوسو بن الشيخ امباكي بوسو
+    file: books/الشيخ محمد البسوبي الكدوي.pdf
+    thumbnail: thumbnails/S Modou.png
+  - title: مريم جارة الله حياتها وسيرتها
+    author: Khadija lo
+    category: Biography
+    language: Arabic
+    description: سيرة سغن مريم جارة الله بوسو
+    file: books/جارة الله.pdf
+    thumbnail: thumbnails/mm diarra.jfif
+  - title: المنبر الكدوي 2017
+    author: سلم الوصول
+    category: Magazines
+    language: Arabic
+    description: مجلة علمية ثقافية
+    file: books/المنبر الكدوي 2017.pdf
+    thumbnail: thumbnails/المنبر 2017.png
+  - title: المنبر الكدوي 2025
+    author: سلم الوصول
+    category: Magazines
+    language: Arabic/Fr/En
+    description: مجلة علمية ثقافية
+    file: books/المنبر الكدوي 2025.pdf
+    thumbnail: thumbnails/المنبر 2025.png
+  - title: Le 1er Khalif de S Mbacke Bousso
+    author: Serigne Fallou Bousso
+    category: Biography
+    language: French
+    description: S Modou Bousso
+    file: books/Serigne Modou Bousso 1er Khalif de Serigne Mbacke Bousso.pdf
+    thumbnail: thumbnails/البكر.png
+  - title: حياة العلامة الشيخ امباكي بوسو
+    author: الللجنة الثقافية التابعة لشباب سلم الوصول
+    category: Biography
+    language: Arabic
+    description: الشيخ امباكي بوسو حياته وخلفاؤه
+    file: books/حياة العلامة الحاج امباكي بوسو.pdf
+    thumbnail: thumbnails/s mbacke.jpg
+  - title: سرين مود خر بوسو
+    author: اللجنة الثقافية التابعة لدائرة أحفاد الشيخ مود خر
+    category: Biography
+    language: Arabic
+    description: حياة الإمام الورع سرين مود خر بوسو وحكاياته التي رواها مباشرة عن الشيخ الخديم
+    file: books/سَرينْ مُودُ خَرِ بوسو.pdf
+    thumbnail: thumbnails/Screenshot 2026-04-17 214751.png
+  - title: Serigne Ndiagna Bousso
+    author: cheikh Bachir Bousso Bakher
+    category: Biography
+    language: French
+    description: La vie de Serigne Ndiagna Bousso
+    file: books/Serigne Ndiagna Bousso  Un Héritage de Piété et de Service.pdf
+    thumbnail: thumbnails/S Ndiania.png
+  - title: 'الملامح التجديدية للتصوف السني عند الشيخ أحمد بمب: منظومة مسالك الجنان نموذجا'
+    author: Murtadaa buso Mamoune & Moustapha Bousoo
+    category: Humanities & Thought
+    language: Arabic
+    description: 'الملامح التجديدية للتصوف السني عند الشيخ أحمد بمب انطلاقا من سيرته ومؤلفاته: منظومة مسالك الجنان نموذجا'
+    file: books/بحث مرتلا ومصطفى.pdf
+    thumbnail: thumbnails/tala tapha.png
+  - title: منهج الشيخ أحمد بمبا في تهذيب الفكر الصوفي وتنقيته
+    author: Dr. Ahmed Lo
+    category: Magazines
+    language: Arabic
+    description: منهج الشيخ أحمد بمبا في تهذيب الفكر الصوفي وتنقيته
+    file: books/أحمد بمب.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: Sufi City- Urban Design and Archetypes in Touba
+    author: Eric Ross
+    category: Humanities & Thought
+    language: English
+    description: Sufi City- Urban Design and Archetypes in Touba
+    file: books/Sufi City- Urban Design and Archetypes in Touba (Rochester -- Eric S. Ross -- ( WeLib.org ).pdf
+    thumbnail: thumbnails/Sufi city.png
+  - title: Understanding Islam
+    author: Frithjof Schuon
+    category: Humanities & Thought
+    language: English
+    description: Understanding Islam
+    file: books/Understanding Islam -- Frithjof Schuon; with a foreword by Annemarie Schimmel -- ( WeLib.org ).pdf
+    thumbnail: thumbnails/islam.png
+  - title: Dërëm ak ngërëm - la philosophie du développement intégral
+    author: Djibi Diakhaté & Cheikh Gueye
+    category: Humanities & Thought
+    language: French
+    description: Dërëm ak ngërëm - la philosophie du développement intégral de serigne Touba
+    file: books/Dërëm ak ngërëm - la philosophie du développement intégral -- Djiby Diakhaté -- ( WeLib.org ).pdf
+    thumbnail: thumbnails/derem.png
+  - title: Fighting the Greater Jihad- Amadu Bamba and the founding of Muridiyya-
+    author: Babou Cheikh Anta
+    category: Humanities & Thought
+    language: English
+    description: The Jihad of Cheikh Ahmadou Bamba
+    file: books/Fighting the Greater Jihad- Amadu Bamba and the Founding of -- Babou, Cheikh Anta, Babou, Cheikh Anta -- ( WeLib.org ).pdf
+    thumbnail: thumbnails/jihad.png
+  - title: دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا
+    author: عبد الرحمان لوح
+    category: Religion & Spirituality
+    language: Arabic
+    description: دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا
+    file: books/دور_المرأة_المسلمة_في_التربية_الإسلامية_الشيخة_مريم_بص_نموذجا.pdf
+    thumbnail: thumbnails/المرأة المسلمة.png
+  - title: شخصيات من المدرسة الخديمية
+    author: اللجنة الثقافية التابعة لمؤسسة الأزهر الاإسلامية
+    category: Biography
+    language: Arabic
+    description: شخصيات من المدرسة الخديمية
+    file: books/شخصيات من المدرسة الخديمية.pdf
+    thumbnail: thumbnails/شخصيات.png
+  - title: عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ
+    author: ذ. عافية أحمد انيانغ
+    category: Biography
+    language: Arabic
+    description: عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ
+    file: books/عَبْقَرِيَّةُ الْعَالِمِ الْعَلَّامَةِ الشَّيْخِ أَحْمَدَ الْبُسُوبِيِّ.pdf
+    thumbnail: thumbnails/عبقرية.png
+  - title: سرين امباكي بوسو ودوره في نشر العلم والمعرفة
+    author: عبد الأحد انيانغ
+    category: Humanities & Thought
+    language: Arabic
+    description: سرين امباكي بوسو ودوره في نشر العلم والمعرفة
+    file: books/سرين امباكي بوسو ودوره في نشر العلم والمعرفة.pdf
+    thumbnail: thumbnails/دوره.png
+  - title: حياة الشيخ أحمد بمب
+    author: الرابطة الخديمية للباحثين والدارسين
+    category: Biography
+    language: Arabic
+    description: ترجمة الشيخ أحمد بمب امباكي خادم الرسول
+    file: books/حياة الشيخ أحمد بمب.pdf
+    thumbnail: thumbnails/حياة الشيخ.png
+  - title: 'الأذكار والأوراد وتأثيرهما في التربية الروحية: الورد المأخوذ نموذجا'
+    author: عيسى عافية غي الطوباوي
+    category: Religion & Spirituality
+    language: Arabic
+    description: 'لأذكار والأوراد وتأثيرهما في التربية الروحية: الورد المأخوذ نموذجا'
+    file: books/الأذكار والأوراد.pdf
+    thumbnail: thumbnails/الورد.png
+  - title: نوازل الشيخ محمد البصوبي المشهور بالحاج امباكي بصو
+    author: طه عبد الرحمان انيانغ
+    category: Humanities & Thought
+    language: Arabic
+    description: نوازل الشيخ امباكي بوسو
+    file: books/نوازل.pdf
+    thumbnail: thumbnails/نوازل.png
+  - title: نبذة عن حياة الشيخ مور بوسو
+    author: الدكتور سام بوسو عبد الرحمان
+    category: Biography
+    language: Arabic
+    description: حياة سرين مور بوسو
+    file: books/الشيخ مور بوسو.pdf
+    thumbnail: thumbnails/مور بوسو.png
+  - title: مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي
+    author: سرين مود بوسو مامون
+    category: Magazines
+    language: Arabic
+    description: مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو
+    file: books/6. مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو.pdf
+    thumbnail: thumbnails/modou.png
+  - title: The Muslim 500 2025
+    author: RISSC
+    category: Magazines
+    language: English
+    description: The world's most influencial muslims 500
+    file: books/500 most influencial muslims.pdf
+    thumbnail: muslim 2025.png
+  - title: The Muslim 500 2026
+    author: RISSC
+    category: Magazines
+    language: English
+    description: The world's most influencial muslims 500
+    file: books/2026b-TheMuslim500-LowRes.pdf
+    thumbnail: muslim 2026.png
+  - title: الشيخ محمد المرتضى امباكي رائد الوقف في السنغال
+    author: سرين امباكي عبد الرحمان
+    category: Humanities & Thought
+    language: Arabic
+    description: الشيخ محمد المرتضى امباكي رائد الوقف في السنغال
+    file: books/رائد الوقف في السنغال 2.pdf
+    thumbnail: thumbnails/متضى.jfif
+  - title: ثلاث منظومات في التصوف والسلوك
+    author: الشيخ أحمد بمب (دائرة فتح الغفار)
+    category: Religion & Spirituality
+    language: Arabic
+    description: منظومات في التصوف والسلوك - منور الصدور - مغالق النيران - جالبة البرور
+    file: books/ثلاث منظومات.pdf
+    thumbnail: thumbnails/منظومات.png
+  - title: 'الشيخ صالح امباكي: حياته وأعماله'
+    author: دائرة روض الرياحين
+    category: Biography
+    language: Arabic
+    description: 'الشيخ صالح امباكي: حياته وأعماله'
+    file: books/الشيخ صالح امباكي حياته واعماله.pdf
+    thumbnail: thumbnails/صالح.png
+  - title: المريدية حقيقتها ومبادئها
+    author: دائرة روض الرياحين
+    category: Religion & Spirituality
+    language: Arabic
+    description: المريدية حقيقتها ومبادئها
+    file: books/المريدية حقيقتها ومبادئها.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: دراسات حول المريدية
+    author: روض الرياحين
+    category: Religion & Spirituality
+    language: Arabic
+    description: دراسات حول المريدية
+    file: books/دراسات حول المريدية روض الرياحين.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: 'المريدية: الحقيقية والواقع وافاق المستقبل'
+    author: الشيخ مرتضى فاط فال
+    category: Religion & Spirituality
+    language: Arabic
+    description: مدخل إلى النظرية التكاملية في تراث الشيخ محمد البسوبي المشهور بالحاج امباكي بوسو
+    file: books/المريدية الحقيقية والواقع وافاق المستقبل الشيخ مرتضى فاط فال.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: الفوائد والزهد والرقائق والمراثي
+    author: محمد بن نصير البغدادي
+    category: Religion & Spirituality
+    language: Arabic
+    description: الفوائد والزهد والرقائق والمراثي
+    file: books/الفوائد والزهد والرقائق والمراثي.pdf
+    thumbnail: thumbnails/الرقائق.png
+  - title: رسائل الجنيد
+    author: الامام أبو القاسم الجنيد
+    category: Religion & Spirituality
+    language: Arabic
+    description: رسائل الجنيد
+    file: books/رسائل الجنيد.pdf
+    thumbnail: thumbnails/جنيد.png
+  - title: ميزان العمل
+    author: الإمام الغزالي
+    category: Religion & Spirituality
+    language: Arabic
+    description: ميزان العمل
+    file: books/ميزان العمل.pdf
+    thumbnail: thumbnails/ميزان العمل.png
+  - title: سلاح اليقظان لطرد الشيطان
+    author: عبد العزيز محمد السلمان
+    category: Religion & Spirituality
+    language: Arabic
+    description: سلاح اليقظان لطرد الشيطان
+    file: books/سلاح اليقظان لطرد الشيطان.pdf
+    thumbnail: thumbnails/طرد الشيطان.png
+  - title: خلق المسلم
+    author: محمد الغزالي
+    category: Religion & Spirituality
+    language: Arabic
+    description: خلق المسلم
+    file: books/خلق المسلم محمد الغزالي.pdf
+    thumbnail: thumbnails/خلق المسلم.png
+  - title: أهوال القبور وأحوال أهلها إلى النشور
+    author: عبد الرحمان بن أحمد بن رجب الحنبلي الدمشقي
+    category: Religion & Spirituality
+    language: Arabic
+    description: أهوال القبور وأحوال أهلها إلى النشور
+    file: books/أهوال القبور وأحوال أهلها إلى النشور.pdf
+    thumbnail: thumbnails/أهوال القبور.png
+  - title: فصوص الحكم
+    author: ابن عربي
+    category: Religion & Spirituality
+    language: Arabic
+    description: فصوص الحكم
+    file: books/فصوص الحكم.pdf
+    thumbnail: thumbnails/فصوص.png
+  - title: شجرة الكون
+    author: ابن عربي
+    category: Religion & Spirituality
+    language: Arabic
+    description: شجرة الكون
+    file: books/شجرة الكون.pdf
+    thumbnail: thumbnails/.png
+  - title: إحياء القلوب
+    author: ولي الدين البكائي
+    category: Religion & Spirituality
+    language: Arabic
+    description: إحياء القلوب
+    file: books/إحياء القلوب.pdf
+    thumbnail: thumbnails/إحياء القلوب.png
+  - title: من إسهام الشيخ الخديم في الفقه المالكي
+    author: أبو مدين شعيب تياو الأزهري الطوبوي
+    category: Humanities & Thought
+    language: Arabic
+    description: من إسهام الشيخ الخديم في الفقه المالكي
+    file: book/من إسهام الشيخ الخديم في الفقه المالكي - Copie - Copie.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: الإسلام الأسود
+    author: محمد شقرون
+    category: Humanities & Thought
+    language: Arabic
+    description: الإسلام الأسود
+    file: books/Noor-Book.com  الاسلام الأسود محمد شقرون 2 .pdf
+    thumbnail: thumbnails/placeholder.jpg
+  - title: التعايش السلمي عند الشيخ الخديم فكرا وممارسة
+    author: د شيخ انجاي
+    category: Humanities & Thought
+    language: Arabic
+    description: التعايش السلمي عند الشيخ الخديم فكرا وممارسة
+    file: books/التعايش السلمي عند الشيخ الخديم فكرا وممارسة د شيخ انجاي.pdf
+    thumbnail: thumbnails/bamba.jfifi
+  - title: الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ
+    author: أبو مدين شعيب تياو الأزهري الطوبوي
+    category: Biography
+    language: Arabic
+    description: الشيخُ شعيبُ امبَاكِي العارفُ الرّبّانيُّ
+    file: books/الشيخُ شعيبُ امبَاكِي…العارفُ الرّبّانيُّ.pdf
+    thumbnail: thumbnails/touba.jpg
+  - title: الشيخُ عبد القادر الإمام العالم السني والمريد الصادق
+    author: أبو مدين شعيب تياو الأزهري الطوبوي
+    category: Biography
+    language: Arabic
+    description: الشيخُ عبد القادر الإمام العالم السني والمريد الصادق
+    file: books/الشيخُ عبد القادر الإمام العالم السني والمريد الصادق.pdf
+    thumbnail: thumbnails/touba.jpg
+  - title: تطريز الأشعار عند العبد الخديم
+    author: أبو مدين شعيب تياو الأزهري الطوبوي
+    category: Humanities & Thought
+    language: Arabic
+    description: تطريز الأشعار عند العبد الخديم
+    file: books/تطريز الأشعار عند العبد الخديم.pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: عناية الشيخ الخديم بالمسجد
+    author: أبو مدين شعيب تياو الأزهري الطوبوي
+    category: Humanities & Thought
+    language: Arabic
+    description: عناية الشيخ الخديم بالمسجد
+    file: books/عناية الشيخ بالمسجد - Copie (2).pdf
+    thumbnail: thumbnails/bamba.jfif
+  - title: طوبى محل وسلوك
+    author: شيخ أحمد مباكي نيانغ
+    category: Humanities & Thought
+    language: Arabic
+    description: مدينة طوبى المحروسة
+    file: books/طوبى محل وسلوك.pdf
+    thumbnail: thumbnails/touba.jpg
+  - title: الوصايا
+    author: ابن عربي
+    category: Religion & Spirituality
+    language: Arabic
+    description: وصايا صوفية
+    file: books/الوصايا.pdf
+    thumbnail: thumbnails/وصايا.png
+  - title: المروءة وخوارمها
+    author: أبو عبيدة مشهور بن حسن آل سلمان
+    category: Religion & Spirituality
+    language: Arabic
+    description: المروءة وخوارمها
+    file: books/المروءة وخوارمها.pdf
+    thumbnail: thumbnails/المروءة.png
+  - title: Les Fondements économic et culture d'un état fédéral d'afrique noire
+    author: Cheikh Anta Diop
+    category: Literature & Media
+    language: French
+    description: Les Fondements économic et culture d'un état fédéral d'afrique noire
+    file: books/Les_fondements_éco_Cheikh Anta Diop.pdf
+    thumbnail: thumbnails/Anta Diop.png
+  - title: Les secrets scientifique du coran
+    author: Dr Samir Abdoulhalim
+    category: Science & Reference
+    language: French
+    description: Les secrets scientifique du coran
+    file: books/Les secrets scientifique du coran.pdf
+    thumbnail: thumbnails/coran.png
+  - title: Les 40 Ahadith de An-Nawawi
+    author: An-Nawawi
+    category: Religion & Spirituality
+    language: French
+    description: Les 40 Ahadith de An-Nawawi
+    file: books/Les secrets scientifique du coran.pdf
+    thumbnail: thumbnails/nawawi.png
+  - title: L’histoire de l'esclavage et de la traite négrière
+    author: Marc Cheb Sun
+    category: Literature & Media
+    language: French
+    description: L’histoire de l'esclavage et de la traite négrière
+    file: books/Marc_Cheb_Sun_&_al_L’histoire_de_l'esclavage_et_de_la_traite_négrière.pdf
+    thumbnail: thumbnails/esclavage.png
+  - title: Les 100 mots de la justice
+    author: Denis Salas
+    category: Literature & Media
+    language: French
+    description: Les 100 mots de la justice
+    file: books/Les 100 mots de la justice - Denis Salas.pdf
+    thumbnail: thumbnails/justice.png
+  - title: Les 100 mots de la psychanalyse
+    author: Jacques André
+    category: Literature & Media
+    language: French
+    description: Les 100 mots de la psychanalyse
+    file: books/Les 100 mots de la psychanalyse - Jacques André.pdf
+    thumbnail: thumbnails/psycoanalysis.png
+  - title: Les 100 mots de la sociologie
+    author: Serge Paugam
+    category: Literature & Media
+    language: French
+    description: Les 100 mots de la sociologie
+    file: books/Les 100 mots de la sociologie - Serge Paugam.pdf
+    thumbnail: thumbnails/.png
+  - title: Les 100 mots de l'économie
+    author: Jean-Paul Betbeze
+    category: Literature & Media
+    language: French
+    description: Les 100 mots de l'économie
+    file: books/Les 100 mots de l'économie - Jean-Paul Betbeze.pdf
+    thumbnail: thumbnails/economie.png
+  - title: Les 100 mots du droit
+    author: François Gaudu
+    category: Literature & Media
+    language: French
+    description: Les 100 mots du droit
+    file: books/Les 100 mots du droit - François Gaudu.pdf
+    thumbnail: thumbnails/droit.png
+  - title: Les 100 mots du marxisme
+    author: Gérard Dumenil
+    category: Literature & Media
+    language: French
+    description: Les 100 mots du marxisme
+    file: books/Les 100 mots du marxisme - Gérard Dumenil.pdf
+    thumbnail: thumbnails/marxism.png
+  - title: Le prince
+    author: Nicolas Machiavel
+    category: Humanities & Thought
+    language: French
+    description: ' Le prince'
+    file: books/Nicolas Machiavel - Le prince.pdf
+    thumbnail: thumbnails/le prince.png
+  - title: l'afrique des minerais strategiques
+    author: Grip
+    category: Magazines
+    language: French
+    description: l'afrique des minerais strategiques
+    file: books/l'afrique des minerais strategiques.pdf
+    thumbnail: thumbnails/minerais.png
+  - title: Travail salarié et Capital
+    author: Karl Marx
+    category: Literature & Media
+    language: French
+    description: Travail salarié et Capital
+    file: books/Karl Marx - Travail salarié et Capital.pdf
+    thumbnail: thumbnails/capital.png
+  - title: La pensée éthique contemporaine
+    author: Jacqueline Russ
+    category: Humanities & Thought
+    language: French
+    description: La pensée éthique contemporaine
+    file: books/La pensée éthique contemporaine - Jacqueline Russ.pdf
+    thumbnail: thumbnails/.png
+  - title: La philosophie antique
+    author: Jean-Paul Dumond
+    category: Humanities & Thought
+    language: French
+    description: La philosophie antique
+    file: books/La philosophie antique - Jean-Paul Dumond.pdf
+    thumbnail: thumbnails/antique.png
+  - title: السلم-المجتمعي-في-السنغال-_-قراءة-في-دور-الطرق-الصوفية
+    author: ساعد بلواضح
+    category: Humanities & Thought
+    language: Arabic
+    description: بحث حول الطرق الصوفية في السنغال ودورهم في نشر السلم والحفاظ عليه
+    file: /uploads/السلم-المجتمعي-في-السنغال-_-قراءة-في-دور-الطرق-الصوفية.pdf
+    thumbnail: ''
